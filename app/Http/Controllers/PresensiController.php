@@ -297,6 +297,16 @@ class PresensiController extends Controller
             ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
             ->orderBy('tgl_presensi')
             ->get();
+
+        if (isset($_POST['exportexcel'])) {
+            $time = date("d-m-Y H:i:s");
+            // fungsi header dengan mengirimkan raw data excel
+            header("Content-type: application/vnd-ms-excel");
+            // Mendefenisikan nama file expor "hasil-export.xls"
+            header("Content-Disposition: attachment; filename= Laporan Absensi Pegawai $time.xls");
+            return view('presensi.cetaklaporanexcel', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
+        }
+
         return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
     }
 
@@ -349,6 +359,14 @@ class PresensiController extends Controller
             ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
             ->groupByRaw('presensi.nik,nama_lengkap')
             ->get();
+
+        if (isset($_POST['exportexcel'])) {
+            $time = date("d-m-Y H:i:s");
+            // fungsi header dengan mengirimkan raw data excel
+            header("Content-type: application/vnd-ms-excel");
+            // Mendefenisikan nama file expor "hasil-export.xls"
+            header("Content-Disposition: attachment; filename= Rekap Absensi Pegawai $time.xls");
+        }
 
         return view('presensi.cetakrekap', compact('bulan', 'tahun', 'namabulan', 'rekap'));
     }
