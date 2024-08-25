@@ -45,18 +45,6 @@
       font-size: 12px;
     }
 
-    .foto {
-      width: 150px;
-      height: 150px;
-      object-fit: cover;
-      max-width: 150px; /* Membatasi ukuran gambar */
-      max-height: 150px; /* Membatasi ukuran gambar */
-    }
-    
-    img {
-    image-orientation: from-image;
-    }
-
   </style>
 </head>
 
@@ -95,14 +83,6 @@
     </table>
 
     <table class="tabeldatakaryawan">
-      <tr>
-        <td rowspan="6">
-          @php
-            $path = Storage::url('uploads/karyawan/'.$karyawan->foto);
-          @endphp
-         <img src="{{url($path)}}" alt="Deskripsi Gambar" style="object-fit: cover;" width="100" height="100">
-        </td>
-      </tr>
       <tr>
         <td>NIK</td>
         <td>:</td>
