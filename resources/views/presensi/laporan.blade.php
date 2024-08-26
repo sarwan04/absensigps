@@ -20,7 +20,7 @@
             <div class="col-6">
                 <div class="card">
                     <div class="card-body">
-                        <form action="/presensi/cetaklaporan" target="_blank" method="POST">
+                        <form action="/presensi/cetaklaporan" id="frmLaporan" target="_blank" method="POST">
                             @csrf
                             <div class="row mt-2">
                                 <div class="col-12">
@@ -56,13 +56,11 @@
                             <div class="row mt-2">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <select name="nik" id="nik" class="form-select" required>
+                                        <select name="nik" id="nik" class="form-select">
                                             <option value="">Karyawan</option>
-                                            @if(!empty($karyawan) && $karyawan->count())
                                             @foreach ($karyawan as $d)
                                                 <option value="{{ $d->nik}}">{{ $d->nama_lengkap}}</option>
                                             @endforeach
-                                            @endif
                                         </select>
                                     </div>
                                 </div>
@@ -97,3 +95,50 @@
   </div>
 
   @endsection
+
+  @push('myscript')
+    <script>
+        $(function() {
+            $("#frmLaporan").submit(function(e){
+
+                var bulan = $("#bulan").val();
+                var tahun = $("#tahun").val();
+                var nik = $("#nik").val();
+
+                if(bulan == ""){
+                    Swal.fire({
+                    title: 'Warning!',
+                    text: 'Bulan Harus Di Pilih',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                    }).then((result)=> {
+                        $("#bulan").focus();
+                    })
+                    return false;
+                } else if (tahun == ""){
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Tahun Harus Di Pilih',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result)=> {
+                        $("#tahun").focus();
+                    })
+                    return false;
+                    
+                } else if (nik == ""){
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Nama Harus di Isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result)=> {
+                        $("#nik").focus();
+                    })
+                    return false;
+                }
+            });
+            
+        });     
+    </script>  
+  @endpush
