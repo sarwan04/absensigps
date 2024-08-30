@@ -5,20 +5,22 @@
     .logout{
         position: absolute;
         color: white;
-        font-size: 30px;
+        font-size: 27px;
         text-decoration: none;
         right: 8px;
+    
     }
     .logout:hover{
         color: white;
     }
+
 </style>
 
 <div class="section" id="user-section">
     <a href="/proseslogout" class="logout">
         <ion-icon name="exit-outline"></ion-icon>
     </a>
-    <div id="user-detail">
+    <div id="user-detail" >
         <div class="avatar">
             @if(!empty (Auth::guard('karyawan')->user()->foto))
             @php
@@ -36,7 +38,7 @@
     </div>
 </div>
 
-<div class="section" id="menu-section">
+<div class="section mt-2" id="menu-section">
     <div class="card">
         <div class="card-body text-center">
             <div class="list-menu">
@@ -84,7 +86,8 @@
         </div>
     </div>
 </div>
-<div class="section mt-2" id="presence-section">
+
+<div class="section mt-4" id="presence-section">
     <div class="todaypresence">
         <div class="row">
             <div class="col-6">

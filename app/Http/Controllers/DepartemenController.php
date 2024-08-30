@@ -71,11 +71,19 @@ class DepartemenController extends Controller
 
     public function delete($kode_dept)
     {
+
+        $karyawanTerdaftar = DB::table('karyawan')->where('kode_dept', $kode_dept)->exists();
+
+        if ($karyawanTerdaftar) {
+            return Redirect::back()->with(['warning' => 'Departemen tidak bisa dihapus karena masih memiliki karyawan terdaftar']);
+        }
+
         $hapus = DB::table('departemen')->where('kode_dept', $kode_dept)->delete();
+
         if ($hapus) {
-            return Redirect::back()->with(['success' => 'Data Berhasil Di Hapus']);
+            return Redirect::back()->with(['success' => 'Data Berhasil Dihapus']);
         } else {
-            return Redirect::back()->with(['warning' => 'Data Gagal Di Hapus']);
+            return Redirect::back()->with(['warning' => 'Data Gagal Dihapus']);
         }
     }
 }
