@@ -197,7 +197,7 @@
             // Menghilangkan pesan gagal setelah 3 detik
             setTimeout(function() {
                 $('.alert-warning').fadeOut('slow');
-            }, 3000);
+            }, 6000);
         });
 
         $(".edit").click(function(){

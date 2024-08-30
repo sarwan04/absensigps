@@ -42,6 +42,7 @@
     <div class="card">
         <div class="card-body text-center">
             <div class="list-menu">
+                
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="/editprofile" class="green" style="font-size: 40px;">
@@ -52,6 +53,7 @@
                         <span class="text-center">Profil</span>
                     </div>
                 </div>
+
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="/presensi/izin" class="danger" style="font-size: 40px;">
@@ -62,6 +64,7 @@
                         <span class="text-center">Cuti</span>
                     </div>
                 </div>
+
                 <div class="item-menu text-center">
                     <div class="menu-icon">
                         <a href="/presensi/histori" class="warning" style="font-size: 40px;">
@@ -72,9 +75,10 @@
                         <span class="text-center">Histori</span>
                     </div>
                 </div>
+
                 <div class="item-menu text-center">
                     <div class="menu-icon">
-                        <a href="" class="orange" style="font-size: 40px;">
+                        <a href="/presensi/lokasi" class="orange" style="font-size: 40px;">
                             <ion-icon name="location"></ion-icon>
                         </a>
                     </div>

@@ -433,4 +433,12 @@ class PresensiController extends Controller
         $cek = DB::table('pengajuan_izin')->where('nik', $nik)->where('tgl_izin', $tgl_izin)->count();
         return $cek;
     }
+
+    public function lokasi()
+    {
+        $nik = Auth::guard('karyawan')->user()->nik;
+        $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
+
+        return view('presensi.lokasiUser', compact('lok_kantor'));
+    }
 }
