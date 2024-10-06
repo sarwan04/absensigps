@@ -439,6 +439,6 @@ class PresensiController extends Controller
         $nik = Auth::guard('karyawan')->user()->nik;
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
 
-        return view('presensi.lokasiUser', compact('lok_kantor'));
+        return view('presensi.lokasi_user', compact('lok_kantor'));
     }
 }
