@@ -60,7 +60,7 @@
         </div>
         <div class="custom-file-upload" id="fileUpload1">
             <input type="file" name="foto" id="fileuploadInput" accept=".png, .jpg, .jpeg">
-            <label for="fileuploadInput">
+            <label for="fileuploadInput" style="cursor: pointer">
                 <span>
                     <strong>
                         <ion-icon name="cloud-upload-outline" role="img" class="md hydrated" aria-label="cloud upload outline"></ion-icon>
