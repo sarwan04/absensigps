@@ -219,11 +219,10 @@
                                 <ion-icon name="finger-print-outline"></ion-icon>
                             </div>
                             <div class="in">
-                                <div>{{ date("d-m-Y",strtotime($d->tgl_presensi)) }}</div>
-                                <span class="badge badge-success">{{ $d->jam_in}}</span>
-                                <span class="badge badge-danger">{{ $presensihariini != null && $d->jam_out != null ? $d->jam_out :
-                                'Belum Absen'}}</span>
-                            </div>
+                                <div>{{ date("d-m-Y", strtotime($d->tgl_presensi)) }}</div>
+                                <span class="badge badge-success">{{ $d->jam_in }}</span>                                
+                                <span class="badge badge-danger">{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</span>
+                            </div>                            
                         </div>
                     </li>    
                     @endforeach                  
