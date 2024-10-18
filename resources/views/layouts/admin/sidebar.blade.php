@@ -39,7 +39,7 @@
               <div class="dropdown-menu-columns">
                 <div class="dropdown-menu-column">
                   <a class="dropdown-item {{ request()->is(['karyawan']) ? 'active' : '' }}" href="/karyawan">
-                    Karyawan
+                    Pegawai
                   </a>
 
                   <a class="dropdown-item {{ request()->is(['departemen']) ? 'active' : '' }}" href="/departemen">

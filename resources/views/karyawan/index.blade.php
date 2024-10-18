@@ -6,7 +6,7 @@
       <div class="row g-2 align-items-center">
         <div class="col">
           <h2 class="page-title">
-            Data Karyawan
+            Data Pegawai
           </h2>
         </div>
     
@@ -49,7 +49,7 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div class="form-group">
-                                                <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" placeholder="Nama Karyawan" value="{{ Request('nama_karyawan')}}">
+                                                <input type="text" name="nama_karyawan" id="nama_karyawan" class="form-control" placeholder="Nama Pegawai" value="{{ Request('nama_karyawan')}}">
                                             </div>
                                         </div>
                                         <div class="col-4">
@@ -133,12 +133,12 @@
       </div>
     </div>
 
-    {{-- Modal Input data Karyawan --}}
+    {{-- Modal Input data Pegawai --}}
     <div class="modal modal-blur fade" id="modal-inputkaryawan" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Tambah Data Karyawan</h5>
+              <h5 class="modal-title">Tambah Data Pegawai</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -239,7 +239,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Edit Data Karyawan</h5>
+              <h5 class="modal-title">Edit Data Pegawai</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="loadeditform">
