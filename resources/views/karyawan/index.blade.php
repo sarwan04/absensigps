@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Nik</th>
+                                            <th>Nip</th>
                                             <th>Nama</th>
                                             <th>Jabatan</th>
                                             <th>No.HP</th>

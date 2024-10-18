@@ -39,7 +39,7 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>NIK</th>
+                                            <th>NIP</th>
                                             <th>Nama Pegawai</th>
                                             <th>Jabatan</th>
                                             <th>Jam Masuk</th>
