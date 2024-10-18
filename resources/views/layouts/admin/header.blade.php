@@ -1,4 +1,19 @@
 <header class="navbar navbar-expand-md d-none d-lg-flex d-print-none" >
+      <style>
+        .navbar-brand a {
+          text-decoration: none;
+        }
+        .navbar-brand a:hover {
+          text-decoration: none;
+        }
+        .navbar-brand {
+        margin-top: 10px;
+        }
+        span {
+          color: #d1e0e2;
+        }
+      </style>
+  
     <div class="container-xl">
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-menu" aria-controls="navbar-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

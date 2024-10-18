@@ -4,14 +4,16 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-menu" aria-controls="sidebar-menu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <h1 class="navbar-brand navbar-brand-autodark">
-        <a href="/admin/dashboardadmin">
-          <img src="{{asset('tabler/static/logo.svg')}}" width="110" height="32" alt="Tabler" class="navbar-brand-image">
+      <h1 class="navbar-brand mb-0 d-flex align-items-center">
+        <a href="/admin/dashboardadmin" class="d-flex align-items-center">
+          <img src="{{asset('tabler/static/logorokanhulu.png')}}" width="110" height="32" alt="Tabler" class="navbar-brand-image me-2">
+          <span class="fs-3 fw-bold text-uppercase">Kepenuhan</span>
         </a>
       </h1>
+      
 
       <div class="collapse navbar-collapse" id="sidebar-menu">
-        <ul class="navbar-nav pt-lg-3">
+        <ul class="navbar-nav pt-lg-1">
           <li class="nav-item">
             <a class="nav-link" href="/admin/dashboardadmin" >
               <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
