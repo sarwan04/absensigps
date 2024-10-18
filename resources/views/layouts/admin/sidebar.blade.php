@@ -43,7 +43,7 @@
                   </a>
 
                   <a class="dropdown-item {{ request()->is(['departemen']) ? 'active' : '' }}" href="/departemen">
-                    Departemen
+                    Jabatan
                   </a>
                 </div>
               </div>
