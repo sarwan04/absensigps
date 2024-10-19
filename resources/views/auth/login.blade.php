@@ -12,7 +12,7 @@
       content="black-translucent"
     />
     <meta name="theme-color" content="#000000" />
-    <title>Smart Absen </title>
+    <title>Smart Absen</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit" />
     <meta
       name="keywords"
@@ -21,7 +21,7 @@
     <link
       rel="icon"
       type="image/png"
-      href="{{asset ('assets/img/favicon.png')}}"
+      href="{{asset('assets/img/favicon.png')}}"
       sizes="32x32"
     />
     <link
@@ -30,7 +30,6 @@
       href="{{asset('assets/img/icon/192x192.png')}}"
     />
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
-    
   </head>
 
   <body class="bg-white">
@@ -42,7 +41,7 @@
 
     <!-- App Capsule -->
     <div id="appCapsule" class="pt-0">
-      <div class="login-form mt-1">
+      <div class="login-form mt-5">
         <div class="section">
           <img
             src="{{asset('assets/img/login/login.avif')}}"
@@ -55,13 +54,12 @@
           <h4>Silahkan Login</h4>
         </div>
         <div class="section mt-1 mb-5">
-
           @php 
-          $messagewarning = Session::get('warning');
+            $messagewarning = Session::get('warning');
           @endphp
 
           @if (Session::get('warning')) 
-          <div class="alert alert-outline-warning">
+          <div class="alert alert-outline-warning" id="error-message">
             {{$messagewarning}}
           </div>
           @endif
@@ -71,10 +69,11 @@
             <div class="form-group boxed">
               <div class="input-wrapper">
                 <input
-                  type="text" name="nik"
+                  type="text"
+                  name="nik"
                   class="form-control"
                   id="nik"
-                  placeholder="NIK"
+                  placeholder="NIP"
                 />
                 <i class="clear-input">
                   <ion-icon name="close-circle"></ion-icon>
@@ -97,17 +96,15 @@
               </div>
             </div>
 
-            <div class="form-links mt-2">
-              <div>
-                <a href="page-forgot-password.html" class="text-muted"
-                  >Forgot Password?</a
-                >
+            <div class="form-group boxed">
+              <div class="form-links">
+                <div>
+                  <a href="page-forgot-password.html" class="text-muted">Lupa Password?</a>
+                </div>
               </div>
-            </div>
 
-            <div class="form-button-group">
-              <button type="submit" class="btn btn-success btn-block btn-lg">
-                Log in
+              <button type="submit" class="btn btn-success btn-block btn-lg mt-2">
+                Login
               </button>
             </div>
           </form>
@@ -133,5 +130,13 @@
     <script src="{{asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js')}}"></script>
     <!-- Base Js File -->
     <script src="{{asset('assets/js/base.js')}}"></script>
+    <script>
+      $(document).ready(function() {
+        // Menghilangkan pesan gagal setelah 3 detik
+        setTimeout(function() {
+          $('#error-message').fadeOut('slow');
+        }, 3000);
+      });
+    </script>
   </body>
 </html>
