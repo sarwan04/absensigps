@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
     />
     <meta name="mobile-web-app-capable" content="yes" />
-    <meta
-      name="mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
+    <meta name="mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="theme-color" content="#000000" />
     <title>Smart Absen</title>
     <meta name="description" content="Mobilekit HTML Mobile UI Kit" />
@@ -21,15 +18,15 @@
     <link
       rel="icon"
       type="image/png"
-      href="{{asset('assets/img/favicon.png')}}"
+      href="{{ asset('assets/img/favicon.png') }}"
       sizes="32x32"
     />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
-      href="{{asset('assets/img/icon/192x192.png')}}"
+      href="{{ asset('assets/img/icon/192x192.png') }}"
     />
-    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
   </head>
 
   <body class="bg-white">
@@ -44,24 +41,19 @@
       <div class="login-form mt-5">
         <div class="section">
           <img
-            src="{{asset('assets/img/login/login.avif')}}"
-            alt="image"
+            src="{{ asset('assets/img/login/login.avif') }}"
+            alt="Login Image"
             class="form-image"
           />
         </div>
         <div class="section mt-1">
-          <h1>Smart Absen</h1>
-          <h4>Silahkan Login</h4>
+          <h1>Smart Absen</h1>          
         </div>
         <div class="section mt-1 mb-5">
-          @php 
-            $messagewarning = Session::get('warning');
-          @endphp
-
-          @if (Session::get('warning')) 
-          <div class="alert alert-outline-warning" id="error-message">
-            {{$messagewarning}}
-          </div>
+          @if(Session::has('warning'))
+            <div class="alert alert-outline-warning" id="error-message">
+              {{ Session::get('warning') }}
+            </div>
           @endif
 
           <form action="/proseslogin" method="POST">
@@ -97,15 +89,15 @@
             </div>
 
             <div class="form-group boxed">
-              <div class="form-links">
-                <div>
-                  <a href="page-forgot-password.html" class="text-muted">Lupa Password?</a>
-                </div>
-              </div>
-
               <button type="submit" class="btn btn-success btn-block btn-lg mt-2">
                 Login
               </button>
+
+              <div class="form-links mt-2">
+                <div>
+                  <a href="#" class="text-muted">Lupa Password?</a>
+                </div>
+              </div>
             </div>
           </form>
         </div>
@@ -115,25 +107,25 @@
 
     <!-- ///////////// Js Files ////////////////////  -->
     <!-- Jquery -->
-    <script src="{{asset('assets/js/lib/jquery-3.4.1.min.js')}}"></script>
+    <script src="{{ asset('assets/js/lib/jquery-3.4.1.min.js') }}"></script>
     <!-- Bootstrap-->
-    <script src="{{asset('assets/js/lib/popper.min.js')}}"></script>
-    <script src="{{asset('assets/js/lib/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('assets/js/lib/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/lib/bootstrap.min.js') }}"></script>
     <!-- Ionicons -->
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.0.0/dist/ionicons/ionicons.js"
     ></script>
     <!-- Owl Carousel -->
-    <script src="{{asset('assets/js/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/owl-carousel/owl.carousel.min.js') }}"></script>
     <!-- jQuery Circle Progress -->
-    <script src="{{asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js')}}"></script>
+    <script src="{{ asset('assets/js/plugins/jquery-circle-progress/circle-progress.min.js') }}"></script>
     <!-- Base Js File -->
-    <script src="{{asset('assets/js/base.js')}}"></script>
+    <script src="{{ asset('assets/js/base.js') }}"></script>
     <script>
-      $(document).ready(function() {
+      $(document).ready(function () {
         // Menghilangkan pesan gagal setelah 3 detik
-        setTimeout(function() {
+        setTimeout(function () {
           $('#error-message').fadeOut('slow');
         }, 3000);
       });
