@@ -265,5 +265,12 @@
             }
         });
     });
+
+    $(document).ready(function () {
+        // Menghilangkan pesan gagal setelah 3 detik
+        setTimeout(function () {
+          $('.alert').fadeOut('slow');
+        }, 3000);
+      });
 </script>
 @endpush
