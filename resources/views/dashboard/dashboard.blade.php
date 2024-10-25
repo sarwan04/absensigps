@@ -218,11 +218,11 @@
                             <div class="icon-box bg-primary">
                                 <ion-icon name="finger-print-outline"></ion-icon>
                             </div>
-                            <div class="in">
+                            <div class="in d-flex justify-content-between align-items-center">
                                 <div>{{ date("d-m-Y", strtotime($d->tgl_presensi)) }}</div>
-                                <span class="badge badge-success">{{ $d->jam_in }}</span>                                
-                                <span class="badge badge-danger">{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</span>
-                            </div>                            
+                                <div><span class="badge badge-success">{{ $d->jam_in }}</span></div>
+                                <div><span class="badge badge-danger">{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</span></div>
+                            </div>                                                                                
                         </div>
                     </li>    
                     @endforeach                  
