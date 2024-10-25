@@ -46,7 +46,8 @@
             </div>
 
             <div class="form-group">
-                <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Keterangan"></textarea>
+                <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Keterangan" maxlength="255" oninput="updateCharCount()"></textarea>
+                <small id="charCount">255 karakter tersisa</small>
             </div>
 
             <div class="form-group">
@@ -121,6 +122,14 @@
         }
 
     });
+
+    function updateCharCount() {
+        const maxChars = 255;
+        const textArea = document.getElementById('keterangan');
+        const charCount = document.getElementById('charCount');
+        const remainingChars = maxChars - textArea.value.length;
+        charCount.textContent = `${remainingChars} karakter tersisa`;
+    }
 
     </script>
 @endpush
