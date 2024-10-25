@@ -27,6 +27,18 @@
       href="{{ asset('assets/img/icon/192x192.png') }}"
     />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
+
+    <style>
+      /* Hover effect for admin login link */
+      .admin-login-link {
+        transition: color 0.3s ease, text-decoration 0.3s ease;
+      }
+    
+      .admin-login-link:hover {
+        text-decoration: underline; 
+      }
+    </style>
+    
   </head>
 
   <body class="bg-white">
@@ -55,6 +67,13 @@
               {{ Session::get('warning') }}
             </div>
           @endif
+
+          <!-- Button Login Admin di atas NIP -->
+          <div class="d-flex justify-content-end">
+            <a href="/admin" class="text-muted admin-login-link">
+              Login Sebagai Admin
+            </a>
+          </div>
 
           <form action="/proseslogin" method="POST">
             @csrf
@@ -100,6 +119,7 @@
               </div>
             </div>
           </form>
+
         </div>
       </div>
     </div>
