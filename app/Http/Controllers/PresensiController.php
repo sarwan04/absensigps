@@ -247,6 +247,19 @@ class PresensiController extends Controller
         }
     }
 
+    public function updateizin() {}
+
+    public function deleteizin($id)
+    {
+        $delete = DB::table('pengajuan_izin')->where('id', $id)->delete();
+
+        if ($delete) {
+            return Redirect::back()->with(['success' => 'Data Berhasil Di Hapus']);
+        } else {
+            return Redirect::back()->with(['warning' => 'Data Gagal Di Hapus']);
+        }
+    }
+
     public function monitoring()
     {
         return view('presensi.monitoring');
