@@ -64,6 +64,8 @@ Route::middleware(['auth:karyawan'])->group(function () {
     Route::get('/presensi/buatizin', [PresensiController::class, 'buatizin']);
     Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
     Route::post('/presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
+    Route::get('/presensi/{id}/edit', [PresensiController::class, 'editizin']); // Menampilkan form edit
+    Route::post('/presensi/{id}/update', [PresensiController::class, 'updateizin']); // Proses update data
     Route::post('/presensi/{id}/deleteizin', [PresensiController::class, 'deleteizin']);
 
     // END USER

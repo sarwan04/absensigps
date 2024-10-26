@@ -247,7 +247,34 @@ class PresensiController extends Controller
         }
     }
 
-    public function updateizin() {}
+    public function updateizin(Request $request, $id)
+    {
+        $tgl_izin = $request->tgl_izin;
+        $status = $request->status;
+        $keterangan = $request->keterangan;
+
+        $data = [
+            'tgl_izin' => $tgl_izin,
+            'status' => $status,
+            'keterangan' => $keterangan
+        ];
+
+        $update = DB::table('pengajuan_izin')->where('id', $id)->update($data);
+
+        if ($update) {
+            return redirect('/presensi/izin')->with(['success' => 'Data Berhasil di Update']);
+        } else {
+            return redirect('/presensi/izin')->with(['error' => 'Data Gagal di Update']);
+        }
+    }
+
+    public function editizin($id)
+    {
+        $izin = DB::table('pengajuan_izin')->where('id', $id)->first();
+        return view('presensi.editizin', compact('izin'));
+    }
+
+
 
     public function deleteizin($id)
     {

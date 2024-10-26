@@ -1,6 +1,7 @@
 @extends('layouts.presensi')
 
 @section('header')
+
 {{-- App Header --}}
 <div class="appHeader bg-primary text-light">
     <div class="left">
@@ -34,7 +35,7 @@
                             <div>
                                 <b>{{ date("d-m-Y", strtotime($d->tgl_izin)) }} ({{ $d->status == "s" ? "Sakit" : "Izin" }})</b>
                                 <br>
-                                <small class="text-muted">{{ $d->keterangan }}</small>
+                                <small class="text-muted">{{ Str::limit($d->keterangan, 18, '...') }}</small>
                             </div>
 
                             <div class="btn-group">
@@ -48,8 +49,13 @@
                                     @endif
                                 </div>
                                     <div>
-                                        <a href="#" class="edit btn btn-info btn-sm mr-2" id="{{ $d->id }}">
-                                            <svg  xmlns="http://www.w3.org/2000/svg"  width="18"  height="18"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-edit"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" /><path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" /><path d="M16 5l3 3" /></svg>
+                                        <a href="{{ url('/presensi/'.$d->id.'/edit') }}" class="edit btn btn-info btn-sm mr-2" id="{{ $d->id }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-edit">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
+                                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
+                                                <path d="M16 5l3 3" />
+                                            </svg>
                                         </a>
                                     </div>
                                     <form action="/presensi/{{ $d->id }}/deleteizin" method="POST" id="frmIzin" enctype="multipart/form-data">
