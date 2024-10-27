@@ -20,25 +20,28 @@
         <div class="col">
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" name="nama_lengkap" value="{{ $karyawan->nama_lengkap }}" placeholder="Nama Lengkap" autocomplete="off">
+                    <input type="text" class="form-control" name="nama_lengkap" value="{{ $karyawan->nama_lengkap }}" placeholder="Nama Lengkap" autocomplete="off" maxlength="100" id="namaLengkapInput">
+                    <small id="charWarningNama" style="color: red; display: none;">Maksimal 100 karakter!</small>
+                </div>
+            </div>
+            <div class="form-group boxed">
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" name="jabatan" value="{{ $karyawan->jabatan }}" placeholder="Jabatan" autocomplete="off" maxlength="50" id="jabatanInput">
+                    <small id="charWarningJabatan" style="color: red; display: none;">Maksimal 50 karakter!</small>
+                </div>
+            </div>
+            
+            <div class="form-group boxed">
+                <div class="input-wrapper">
+                    <input type="text" class="form-control" name="no_hp" value="{{ $karyawan->no_hp }}" placeholder="No. HP" autocomplete="off" maxlength="14" id="noHpInput">
+                    <small id="charWarningnoHp" style="color: red; display: none;">Maksimal 14 karakter!</small>
                 </div>
             </div>
 
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" name="jabatan" value="{{ $karyawan->jabatan }}" placeholder="Jabatan" autocomplete="off">
-                </div>
-            </div>
-
-            <div class="form-group boxed">
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" name="no_hp" value="{{ $karyawan->no_hp }}" placeholder="No. HP" autocomplete="off">
-                </div>
-            </div>
-
-            <div class="form-group boxed">
-                <div class="input-wrapper">
-                    <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off">
+                    <input type="password" class="form-control" name="password" placeholder="Password" autocomplete="off" minlength="5" id="passwordInput">
+                    <small id="passwordWarning" style="color: red; display: none;">Password harus memiliki minimal 5 karakter!</small>
                 </div>
             </div>
 
@@ -100,5 +103,30 @@
             });
         }, 3000);
     });
+
+    const inputs = [
+        { id: 'namaLengkapInput', maxChars: 100, warningId: 'charWarningNama' },
+        { id: 'jabatanInput', maxChars: 50, warningId: 'charWarningJabatan' },
+        { id: 'noHpInput', maxChars: 14, warningId: 'charWarningnoHp' },
+        { id: 'passwordInput', minChars: 5, warningId: 'passwordWarning' }
+    ];
+
+    inputs.forEach(input => {
+        const inputElement = document.getElementById(input.id);
+        const warningMessage = document.getElementById(input.warningId);
+
+        inputElement.addEventListener('input', function () {
+            if (input.minChars) {
+                warningMessage.style.display = this.value.length < input.minChars ? 'block' : 'none';
+            } else {
+                warningMessage.style.display = this.value.length >= input.maxChars ? 'block' : 'none';
+            }
+        });
+
+        inputElement.addEventListener('focus', function () {
+            warningMessage.style.display = 'none';
+        });
+    });
 </script>
 @endpush
+
