@@ -150,12 +150,14 @@
 
         <table class="tabeldatakaryawan">
             <tr>
-                <td rowspan="6">
-                    @php
+              <td rowspan="6">
+                @php
                     $path = Storage::url('uploads/karyawan/'.$karyawan->foto);
-                    @endphp
-                    <img src="{{url($path)}}" alt="Deskripsi Gambar" style="width: 150px; height: 150px; object-fit: cover;">
-                </td>
+                    $pathImageDefault = Storage::url('uploads/nophoto/nophoto.png');
+                @endphp
+                <img src="{{ $karyawan->foto ? url($path) : url($pathImageDefault) }}" alt="Deskripsi Gambar" style="width: 150px; height: 150px; object-fit: cover;">
+            </td>
+            
             </tr>
             <tr>
                 <td>NIP</td>
