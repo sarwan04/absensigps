@@ -94,7 +94,7 @@
             <div class="col-12">
                 <table class="table table-bordered">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>No.</th>
                             <th>Tanggal</th>
                             <th>NIP</th>
@@ -107,15 +107,15 @@
                         </tr>
                         <tbody>
                             @foreach ($izinsakit as $d)
-                                <tr>
-                                    <td> {{ $loop->iteration }}</td>
+                                <tr class="align-middle">
+                                    <td > {{ $loop->iteration }}</td>
                                     <td> {{ date('d-m-Y',strtotime($d->tgl_izin)) }}</td>
                                     <td> {{ $d->nik }}</td>
                                     <td> {{ $d->nama_lengkap }}</td>
                                     <td> {{ $d->jabatan }}</td>
                                     <td> {{ $d->status == "i" ? "Izin" : "Sakit"}}</td>
                                     <td> {{ $d->keterangan }}</td>
-                                    <td>
+                                    <td class="text-center">
                                         @if($d->status_approved==1)
                                         <span class="badge bg-success">Di Setujui</span>
                                         @elseif($d->status_approved==2)
@@ -124,9 +124,9 @@
                                         <span class="badge bg-warning">Menunggu</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td class="text-center">
                                         @if  ($d->status_approved==0)
-                                        <a href="#" class="btn btn-sm btn-primary approve" id_izinsakit="{{ $d->id }}">
+                                        <a href="#" class="btn btn-md btn-primary approve" id_izinsakit="{{ $d->id }}">
                                             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-external-link"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6" /><path d="M11 13l9 -9" /><path d="M15 4h5v5" /></svg>
                                         </a>
                                         @else 
