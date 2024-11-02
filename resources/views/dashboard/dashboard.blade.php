@@ -110,7 +110,9 @@
                             </div>
                             <div class="presencedetail">
                                 <h4 class="presencetitle">Masuk</h4>
-                                <span>{{ $presensihariini != null ? $presensihariini->jam_in : 'Belum Absen'}}</span>
+                                <span>
+                                    {{ $presensihariini && $presensihariini->jam_in ? date("H:i", strtotime($presensihariini->jam_in)) : 'Belum Absen' }}
+                                </span>                                
                             </div>
                         </div>
                     </div>
@@ -132,7 +134,7 @@
                             </div>
                             <div class="presencedetail">
                                 <h4 class="presencetitle">Pulang</h4>
-                                <span>{{ $presensihariini != null && $presensihariini->jam_out != null ? $presensihariini->jam_out : 'Belum Absen'}}</span>
+                                {{ $presensihariini && $presensihariini->jam_out ? date("H:i", strtotime($presensihariini->jam_out)) : 'Belum Absen' }}
                             </div>
                         </div>
                     </div>
@@ -222,9 +224,15 @@
                                 <div>{{ date("d-m-Y", strtotime($d->tgl_presensi)) }}</div>
                                 <div><span class="badge-custom badge-success">Hadir : {{ date("H:i", strtotime($d->jam_in)) }}</span></div>
                                 <div>
-                                    <span class="badge-custom badge-danger">
-                                        Pulang : {{ $d->jam_out != null ? date("H:i", strtotime($d->jam_out)) : 'Belum Absen' }}
-                                    </span>
+                                    @if ($d->jam_out !== null)
+                                        <span class="badge-custom badge-danger">
+                                            Pulang : {{ date("H:i", strtotime($d->jam_out)) }}
+                                        </span>
+                                    @else
+                                        <span class="badge-custom badge-danger">
+                                            Belum Absen
+                                        </span>
+                                    @endif                            
                                 </div>
                             </div>
                                                                                                          
@@ -245,7 +253,9 @@
                                     <br>
                                     <small class="text-muted">{{ $d->jabatan }}</small>
                                 </div>
-                                <span class="badge-custom {{ $d->jam_in < "08:00" ? "bg-success" : "bg-danger" }}">Hadir : {{ date("H:i", strtotime($d->jam_in)) }}</span>
+                                <span class="badge-custom {{ $d->jam_in <= "08:00" ? "bg-success" : "bg-danger" }}">
+                                    {{ $d->jam_in <= "08:00" ? 'Hadir' : 'Telat' }} : {{ date("H:i", strtotime($d->jam_in)) }}
+                                </span>
                             </div>
                         </div>
                     </li>
