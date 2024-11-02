@@ -35,13 +35,23 @@ class PresensiController extends Controller
         $tgl_presensi = date("Y-m-d");
         $jam = date('H:i:s');
 
+        $izinDisetujui = DB::table('pengajuan_izin')
+            ->where('nik', $nik)
+            ->where('tgl_izin', $tgl_presensi)
+            ->where('status_approved', 1)
+            ->exists();
+
+        if ($izinDisetujui) {
+            echo "warning|Anda sudah diizinkan pada hari ini.";
+            return;
+        }
+
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
         $lok = explode(",", $lok_kantor->lokasi_kantor);
 
         // Lokasi Kantor
         $latitudekantor = $lok[0];
-        $longitudekantor =  $lok[1];
-
+        $longitudekantor = $lok[1];
 
         $lokasi = $request->lokasi;
         $lokasiuser = explode(",", $lokasi);
@@ -61,14 +71,13 @@ class PresensiController extends Controller
             $ket = "in";
         }
 
-        $image  = $request->image;
+        $image = $request->image;
         $folderPath = "public/uploads/absensi/";
         $formatName = $nik . "-" . $tgl_presensi . "-" . $ket;
         $image_parts = explode(";base64", $image);
         $image_base64 = base64_decode($image_parts[1]);
         $fileName = $formatName . ".png";
         $file = $folderPath . $fileName;
-
 
         if ($radius > $lok_kantor->radius) {
             echo "error|Maaf Anda Berada Diluar Radius, Jarak Anda " . $radius . " Meter dari Kantor|radius";
@@ -105,6 +114,7 @@ class PresensiController extends Controller
             }
         }
     }
+
 
     private function checkPresence()
     {
@@ -337,15 +347,6 @@ class PresensiController extends Controller
             ->whereRaw('YEAR(tgl_presensi)="' . $tahun . '"')
             ->orderBy('tgl_presensi')
             ->get();
-
-        if (isset($_POST['exportexcel'])) {
-            $time = date("d-m-Y H:i:s");
-            // fungsi header dengan mengirimkan raw data excel
-            header("Content-type: application/vnd-ms-excel");
-            // Mendefenisikan nama file expor "hasil-export.xls"
-            header("Content-Disposition: attachment; filename= Laporan Absensi Pegawai $time.xls");
-            return view('presensi.cetaklaporanexcel', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
-        }
 
         return view('presensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'presensi'));
     }

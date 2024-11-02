@@ -222,49 +222,56 @@
 
     // Absen Logic
     $('#takeabsen').click(function(e) {
-        Webcam.snap(function(uri) {
-            image = uri;
-        });
-
-        var lokasi = $('#lokasi').val();
-        $.ajax({
-            type: 'POST',
-            url: '/presensi/store',
-            data: {
-                _token: "{{ csrf_token() }}",
-                image: image,
-                lokasi: lokasi
-            },
-            cache: false,
-            success: function(respond) {
-                var status = respond.split("|");
-                if (status[0] === "success") {
-                    if (status[2] === "in") {
-                        notifikasi_in.play();
-                    } else {
-                        notifikasi_out.play();
-                    }
-                    Swal.fire({
-                        title: 'Berhasil!',
-                        text: status[1],
-                        icon: 'success'
-                    });
-                    setTimeout(() => {
-                        location.href = '/dashboard';
-                    }, 3000);
-                } else {
-                    if (status[2] === "radius") {
-                        radius_sound.play();
-                    }
-                    Swal.fire({
-                        title: 'Error!',
-                        text: status[1],
-                        icon: 'error'
-                    });
-                }
-            }
-        });
+    Webcam.snap(function(uri) {
+        image = uri;
     });
+
+    var lokasi = $('#lokasi').val();
+    $.ajax({
+        type: 'POST',
+        url: '/presensi/store',
+        data: {
+            _token: "{{ csrf_token() }}",
+            image: image,
+            lokasi: lokasi
+        },
+        cache: false,
+        success: function(respond) {
+            var status = respond.split("|");
+            if (status[0] === "success") {
+                if (status[2] === "in") {
+                    notifikasi_in.play();
+                } else {
+                    notifikasi_out.play();
+                }
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: status[1],
+                    icon: 'success'
+                });
+                setTimeout(() => {
+                    location.href = '/dashboard';
+                }, 3000);
+            } else if (status[0] === "warning") {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: status[1],
+                    icon: 'warning'
+                });
+                if (status[2] === "radius") {
+                    radius_sound.play();
+                }
+            } else {
+                Swal.fire({
+                    title: 'Error!',
+                    text: status[1],
+                    icon: 'error'
+                });
+            }
+        }
+    });
+});
+
 
     $(document).ready(function () {
         // Menghilangkan pesan gagal setelah 3 detik
