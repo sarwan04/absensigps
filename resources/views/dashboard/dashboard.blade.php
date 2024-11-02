@@ -220,9 +220,14 @@
                             </div>
                             <div class="in d-flex justify-content-between align-items-center">
                                 <div>{{ date("d-m-Y", strtotime($d->tgl_presensi)) }}</div>
-                                <div><span class="badge badge-success">{{ $d->jam_in }}</span></div>
-                                <div><span class="badge badge-danger">{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</span></div>
-                            </div>                                                                                
+                                <div><span class="badge-custom badge-success">Hadir : {{ date("H:i", strtotime($d->jam_in)) }}</span></div>
+                                <div>
+                                    <span class="badge-custom badge-danger">
+                                        Pulang : {{ $d->jam_out != null ? date("H:i", strtotime($d->jam_out)) : 'Belum Absen' }}
+                                    </span>
+                                </div>
+                            </div>
+                                                                                                         
                         </div>
                     </li>    
                     @endforeach                  
@@ -236,15 +241,33 @@
                             <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
                             <div class="in">
                                 <div>
-                                    <b>{{ $d->nama_lengkap }}</b> 
+                                    <b>{{ $d->nama_lengkap }}</b>
                                     <br>
-                                    <small class="text-muted">{{ $d->jabatan}}</small>
+                                    <small class="text-muted">{{ $d->jabatan }}</small>
                                 </div>
-                                <span class="badge {{ $d->jam_in< "08:00" ? "bg-success" : "bg-danger"}}">{{$d->jam_in}}</span>
+                                <span class="badge-custom {{ $d->jam_in < "08:00" ? "bg-success" : "bg-danger" }}">Hadir : {{ date("H:i", strtotime($d->jam_in)) }}</span>
                             </div>
                         </div>
                     </li>
-                    @endforeach
+                @endforeach
+            
+                @foreach ($izinHariIni as $izin)
+                    <li>
+                        <div class="item">
+                            <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="image">
+                            <div class="in">
+                                <div>
+                                    <b>{{ $izin->nama_lengkap }}</b>
+                                    <br>
+                                    <small class="text-muted">{{ $izin->jabatan }}</small>
+                                </div>
+                                <span class="badge-custom bg-warning">
+                                    {{ $izin->status == 'i' ? ' Izin ' : ($izin->status == 's' ? ' Sakit ' : '') }}
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                @endforeach
                 </ul>
             </div>
 
