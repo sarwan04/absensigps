@@ -50,7 +50,7 @@
                                             <th>Lokasi</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="loadpresensi" class="align-middle"></tbody>
+                                    <tbody id="loadpresensi" class="align-middle text-center"></tbody>
                                 </table>
                             </div>
                         </div>
