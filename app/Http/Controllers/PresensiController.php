@@ -158,7 +158,6 @@ class PresensiController extends Controller
     {
         $nik = Auth::guard('karyawan')->user()->nik;
         $nama_lengkap = $request->nama_lengkap;
-        $jabatan = $request->jabatan;
         $no_hp = $request->no_hp;
         $password = Hash::make($request->password);
         $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
@@ -172,14 +171,12 @@ class PresensiController extends Controller
         if (empty($request->password)) {
             $data = [
                 'nama_lengkap' => $nama_lengkap,
-                'jabatan' => $jabatan,
                 'no_hp' => $no_hp,
                 'foto' => $foto
             ];
         } else {
             $data = [
                 'nama_lengkap' => $nama_lengkap,
-                'jabatan' => $jabatan,
                 'no_hp' => $no_hp,
                 'password' => $password,
                 'foto' => $foto

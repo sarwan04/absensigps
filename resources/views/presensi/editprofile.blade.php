@@ -24,12 +24,6 @@
                     <small id="charWarningNama" style="color: red; display: none;">Maksimal 100 karakter!</small>
                 </div>
             </div>
-            <div class="form-group boxed">
-                <div class="input-wrapper">
-                    <input type="text" class="form-control" name="jabatan" value="{{ $karyawan->jabatan }}" placeholder="Jabatan" autocomplete="off" maxlength="50" id="jabatanInput">
-                    <small id="charWarningJabatan" style="color: red; display: none;">Maksimal 50 karakter!</small>
-                </div>
-            </div>
             
             <div class="form-group boxed">
                 <div class="input-wrapper">
@@ -106,7 +100,6 @@
 
     const inputs = [
         { id: 'namaLengkapInput', maxChars: 100, warningId: 'charWarningNama' },
-        { id: 'jabatanInput', maxChars: 50, warningId: 'charWarningJabatan' },
         { id: 'noHpInput', maxChars: 14, warningId: 'charWarningnoHp' },
         { id: 'passwordInput', minChars: 5, warningId: 'passwordWarning' }
     ];
