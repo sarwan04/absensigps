@@ -44,6 +44,24 @@
             .print-buttons { display: none; }
             .page-break { page-break-before: always; }
         }
+
+        .footer-signatures {
+            display: none;
+            position: absolute;
+            bottom: 100px;
+            right: 0;
+            width: auto;
+            text-align: center;
+        }
+
+        .sheet:last-of-type .footer-signatures {
+            display: block;
+        }
+
+        .footer-signatures td {
+            text-align: center;
+            vertical-align: bottom;
+        }
     </style>
 </head>
 
@@ -145,22 +163,19 @@
                 @endforeach
             </table>
 
-            <table width="100%" style="margin-top:100px">
+            <table width="100%" style="margin-top:100px;" class="footer-signatures">
                 <tr>
-                    <td></td>
-                    <td style="text-align: center">Kota Tengah {{ date('d-m-Y') }}</td>
+                    <td style="width: 50%; text-align: center; font-weight: bold;">Kota Tengah, {{ date('d-m-Y') }}</td>
                 </tr>
                 <tr>
-                    <td style="text-align: center; vertical-align:bottom" height="100">
-                        <u>Muhammad Yassin SKM</u><br>
-                        <i><b>Sekretaris Camat</b></i>
-                    </td>
-                    <td style="text-align: center; vertical-align:bottom">
+                    <td style="text-align: center; padding-top: 70px; vertical-align: bottom;">
                         <u>Gustia Hendri S.Sos M.Si</u><br>
                         <i><b>Camat Kepenuhan</b></i>
                     </td>
+                    <td></td>
                 </tr>
             </table>
+            
         </section>
     @endforeach
 </body>
