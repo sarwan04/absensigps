@@ -83,7 +83,7 @@
             <table style="width: 100%">
                 <tr>
                     <td style="width: 100px">
-                        <img src="{{ asset('assets/img/logorokanhulu.png') }}" width="80" alt="">
+                        <img src="{{ asset('assets/img/logorokanhulu.png') }}" width="80" alt="Logo">
                     </td>
                     <td>
                         <span id="title">
@@ -101,13 +101,13 @@
                     <th rowspan="2">NIP</th>
                     <th rowspan="2">Nama Pegawai</th>
                     <th rowspan="2">Jabatan</th>
-                    <th colspan="31">Tanggal</th>
-                    <th rowspan="2">Hadir</th>
-                    <th rowspan="2">Absen</th>
-                    <th rowspan="2">Izin</th>
+                    <th colspan="{{ cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun) }}">Tanggal</th>
+                    <th rowspan="2">TH</th>
+                    <th rowspan="2">TA</th>
+                    <th rowspan="2">TI</th>
                 </tr>
                 <tr>
-                    @for ($i = 1; $i <= 31; $i++)
+                    @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun); $i++)
                         <th>{{ $i }}</th>
                     @endfor
                 </tr>
@@ -125,34 +125,34 @@
                             $izinIds = explode(', ', $d->izin_ids);
                         ?>
 
-                        @for ($i = 1; $i <= 31; $i++)
-                            <?php
-                                $tgl = "tgl_$i";
-                                $status = $d->$tgl ?: 'A';
-                                $class = '';
+                        @for ($i = 1; $i <= cal_days_in_month(CAL_GREGORIAN, $bulan, $tahun); $i++)
+                        <?php
+                        $tgl = "tgl_$i";
+                        $status = $d->$tgl ?: 'A';
+                        $class = '';
 
-                                if ($status == 'H') {
-                                    $class = 'hadir-bg';
-                                    $totalHadir++;
-                                } elseif ($status == 'A') {
-                                    $class = 'absen-bg';
-                                    $totalAbsen++;
-                                }
+                        if ($status == 'H') {
+                            $class = 'hadir-bg';
+                            $totalHadir++;
+                        } elseif ($status == 'A') {
+                            $class = 'absen-bg';
+                            $totalAbsen++;
+                        }
 
-                                $currentDate = sprintf('%04d-%02d-%02d', $tahun, $bulan, $i);
-                                $izinFound = false;
-                                foreach ($izinIds as $izinId) {
-                                    $izinDetail = DB::table('pengajuan_izin')->where('id', $izinId)->first();
+                        $currentDate = sprintf('%04d-%02d-%02d', $tahun, $bulan, $i);
+                        $izinFound = false;
+                        foreach ($izinIds as $izinId) {
+                            $izinDetail = DB::table('pengajuan_izin')->where('id', $izinId)->first();
 
-                                    if ($izinDetail && $izinDetail->status_approved == 1 && date('Y-m-d', strtotime($izinDetail->tgl_izin)) === $currentDate) {
-                                        $status = 'I';
-                                        $class = 'izin-bg';
-                                        $izinFound = true;
-                                        $totalIzin++;
-                                        break;
-                                    }
-                                }
-                            ?>
+                            if ($izinDetail && $izinDetail->status_approved == 1 && date('Y-m-d', strtotime($izinDetail->tgl_izin)) === $currentDate) {
+                                $status = 'I';
+                                $class = 'izin-bg';
+                                $izinFound = true;
+                                $totalIzin++;
+                                break;
+                            }
+                        }
+                    ?>
                             <td class="{{ $class }}">{{ $status }}</td>
                         @endfor
 
@@ -172,10 +172,8 @@
                         <u>Gustia Hendri S.Sos M.Si</u><br>
                         <i><b>Camat Kepenuhan</b></i>
                     </td>
-                    <td></td>
                 </tr>
             </table>
-            
         </section>
     @endforeach
 </body>

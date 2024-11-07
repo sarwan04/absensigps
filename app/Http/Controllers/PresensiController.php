@@ -401,9 +401,6 @@ class PresensiController extends Controller
         return view('presensi.cetakrekap', compact('bulan', 'tahun', 'namabulan', 'rekap'));
     }
 
-
-
-
     public function izinsakit(Request $request)
     {
 
