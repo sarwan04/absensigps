@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
     <title>Dashboard Admin</title>
-    <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script>
+    {{-- <script defer data-api="/stats/api/event" data-domain="preview.tabler.io" src="/stats/js/script.js"></script> --}}
     <meta name="msapplication-TileColor" content=""/>
     <meta name="theme-color" content=""/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
