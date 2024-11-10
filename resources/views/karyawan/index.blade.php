@@ -151,7 +151,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-barcode"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7v-1a2 2 0 0 1 2 -2h2" /><path d="M4 17v1a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v1" /><path d="M16 20h2a2 2 0 0 0 2 -2v-1" /><path d="M5 11h1v2h-1z" /><path d="M10 11l0 2" /><path d="M14 11h1v2h-1z" /><path d="M19 11l0 2" /></svg>
                             </span>
-                            <input type="text" value="" id="nik" class="form-control" name="nik" placeholder="NIK">
+                            <input type="text" value="" id="nik" class="form-control" name="nik" placeholder="NIP" maxlength="18">
                           </div>
                     </div>
                 </div>
@@ -163,7 +163,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
                             </span>
-                            <input type="text" value="" id="nama_lengkap" class="form-control" name="nama_lengkap" placeholder="Nama Lengkap">
+                            <input type="text" value="" id="nama_lengkap" class="form-control" name="nama_lengkap" placeholder="Nama Lengkap" maxlength="99">
                           </div>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-tie"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 22l4 -4l-2.5 -11l.993 -2.649a1 1 0 0 0 -.936 -1.351h-3.114a1 1 0 0 0 -.936 1.351l.993 2.649l-2.5 11l4 4z" /><path d="M10.5 7h3l5 5.5" /></svg>
                             </span>
-                            <input type="text" value="" id="jabatan" class="form-control" name="jabatan" placeholder="Jabatan">
+                            <input type="text" value="" id="jabatan" class="form-control" name="jabatan" placeholder="Jabatan" maxlength="49">
                           </div>
                     </div>
                 </div>
@@ -187,7 +187,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-device-mobile"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M6 5a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-8a2 2 0 0 1 -2 -2v-14z" /><path d="M11 4h2" /><path d="M12 17v.01" /></svg>
                             </span>
-                            <input type="text" value="" id="no_hp" class="form-control" name="no_hp" placeholder="No HP">
+                            <input type="text" value="" id="no_hp" class="form-control" name="no_hp" placeholder="No HP" maxlength="12">
                           </div>
                     </div>
                 </div>
@@ -253,81 +253,100 @@
 @endsection
 
 @push('myscript')
-   <script>
-     $(function(){
-        $("#btnTambahkaryawan").click(function(){
+<script>
+    $(document).ready(function() {
+        // Menampilkan modal untuk tambah karyawan
+        $("#btnTambahkaryawan").click(function() {
             $("#modal-inputkaryawan").modal("show");
-
         });
-
-        $(document).ready(function() {
-            // Menghilangkan pesan sukses setelah 3 detik
-            setTimeout(function() {
-                $('.alert-success').fadeOut('slow');
-            }, 3000);
-
-            // Menghilangkan pesan gagal setelah 3 detik
-            setTimeout(function() {
-                $('.alert-warning').fadeOut('slow');
-            }, 3000);
+    
+        // Menampilkan SweetAlert jika session 'success' ada
+        @if(Session::has('success'))
+        Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ Session::get('success') }}",
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
         });
-
-
-        $(".edit").click(function(){
+        @endif
+    
+        // Menampilkan SweetAlert jika session 'warning' ada
+        @if(Session::has('warning'))
+        Swal.fire({
+            title: 'Gagal!',
+            text: "{{ Session::get('warning') }}",
+            icon: 'error',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
+        });
+        @endif
+    
+        setTimeout(function() {
+            $('.alert-success').fadeOut('slow');
+        }, 3000);
+    
+        setTimeout(function() {
+            $('.alert-warning').fadeOut('slow');
+        }, 3000);
+    
+        // Menampilkan form edit karyawan dengan AJAX
+        $(".edit").click(function() {
             var nik = $(this).attr('nik');
             $.ajax({
                 type: 'POST',
                 url: '/karyawan/edit',
-                cache:false,
-                data:{
-                    _token: "{{csrf_token();}}",
+                cache: false,
+                data: {
+                    _token: "{{ csrf_token() }}",
                     nik: nik
                 },
-                success:function(respond){
+                success: function(respond) {
                     $("#loadeditform").html(respond);
                 }
             });
             $("#modal-editkaryawan").modal("show");
         });
-
-        $(".delete-confirm").click(function(e){
+    
+        // Konfirmasi hapus data karyawan
+        $(".delete-confirm").click(function(e) {
             var form = $(this).closest('form');
             e.preventDefault();
             Swal.fire({
-                title: "Apakah Anda Yakin Data ini Mau di Hapus ?",
-                text: " Jika Ya, Maka Data akan Terhapus Permanent",
+                title: "Apakah Anda Yakin Data ini Mau di Hapus?",
+                text: "Jika Ya, Maka Data akan Terhapus Permanen",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Ya, Hapus Saja!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                        Swal.fire(
-                            "Deleted!",
-                            "Data Berhasil Di Hapus",
-                            "success");
-                    } 
-                });
-        })
-
-        $("#frmKaryawan").submit(function(){
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); 
+                }
+            });
+        });
+    
+        // Validasi form tambah karyawan
+        $("#frmKaryawan").submit(function() {
             var nik = $("#nik").val();
             var nama_lengkap = $("#nama_lengkap").val();
             var jabatan = $("#jabatan").val();
             var no_hp = $("#no_hp").val();
             var kode_dept = $("#frmKaryawan").find("#kode_dept").val();
-
-            if(nik == ""){
+    
+            // Validasi setiap field
+            if (nik == "") {
                 Swal.fire({
                     title: 'Warning!',
                     text: 'NIK Harus di Isi',
                     icon: 'warning',
                     confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#nik").focus();
-                    })
+                }).then(() => {
+                    $("#nik").focus();
+                });
                 return false;
             } else if (nama_lengkap == "") {
                 Swal.fire({
@@ -335,9 +354,9 @@
                     text: 'Nama Harus di Isi',
                     icon: 'warning',
                     confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#nama_lengkap").focus();
-                    })
+                }).then(() => {
+                    $("#nama_lengkap").focus();
+                });
                 return false;
             } else if (jabatan == "") {
                 Swal.fire({
@@ -345,19 +364,19 @@
                     text: 'Jabatan Harus di Isi',
                     icon: 'warning',
                     confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#jabatan").focus();
-                    })
+                }).then(() => {
+                    $("#jabatan").focus();
+                });
                 return false;
-            } else if ( no_hp == "") {
+            } else if (no_hp == "") {
                 Swal.fire({
                     title: 'Warning!',
                     text: 'No HP Harus di Isi',
                     icon: 'warning',
                     confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#no_hp").focus();
-                    })
+                }).then(() => {
+                    $("#no_hp").focus();
+                });
                 return false;
             } else if (kode_dept == "") {
                 Swal.fire({
@@ -365,14 +384,13 @@
                     text: 'Departemen Harus di Isi',
                     icon: 'warning',
                     confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#kode_dept").focus();
-                    })
+                }).then(() => {
+                    $("#kode_dept").focus();
+                });
                 return false;
             }
         });
-
-
     });
-   </script>
+    </script>
+        
 @endpush

@@ -123,7 +123,7 @@ class KaryawanController extends Controller
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
 
-                return Redirect::back()->with(['success' => 'Data Berhasil Update']);
+                return Redirect::back()->with(['success' => 'Data Berhasil Di Update']);
             }
         } catch (\Exception $e) {
             return Redirect::back()->with(['warning' => 'Data Gagal Update']);
