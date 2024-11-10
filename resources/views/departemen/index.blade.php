@@ -124,7 +124,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-barcode"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7v-1a2 2 0 0 1 2 -2h2" /><path d="M4 17v1a2 2 0 0 0 2 2h2" /><path d="M16 4h2a2 2 0 0 1 2 2v1" /><path d="M16 20h2a2 2 0 0 0 2 -2v-1" /><path d="M5 11h1v2h-1z" /><path d="M10 11l0 2" /><path d="M14 11h1v2h-1z" /><path d="M19 11l0 2" /></svg>
                             </span>
-                            <input type="text" value="" id="kode_dept" class="form-control" placeholder="Kode Jabatan" name="kode_dept" >
+                            <input type="text" value="" id="kode_dept" class="form-control" placeholder="Kode Jabatan" name="kode_dept" maxlength="5" >
                           </div>
                     </div>
                 </div>
@@ -136,7 +136,7 @@
                               <!-- Download SVG icon from http://tabler-icons.io/i/user -->
                               <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-user"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" /><path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" /></svg>
                             </span>
-                            <input type="text" value="" id="nama_dept" class="form-control" name="nama_dept" placeholder="Nama Jabatan">
+                            <input type="text" value="" id="nama_dept" class="form-control" name="nama_dept" placeholder="Nama Jabatan" maxlength="50">
                           </div>
                     </div>
                 </div>
@@ -181,123 +181,111 @@
 @endsection
 
 @push('myscript')
-   <script>
+<script>
      $(function(){
         $("#btnTambahdepartemen").click(function(){
             $("#modal-inputdepartemen").modal("show");
 
         });
 
-        $(document).ready(function() {
-            // Menghilangkan pesan sukses setelah 3 detik
-            setTimeout(function() {
-                $('.alert-success').fadeOut('slow');
-            }, 3000);
-
-            // Menghilangkan pesan gagal setelah 3 detik
-            setTimeout(function() {
-                $('.alert-warning').fadeOut('slow');
-            }, 6000);
+  // Menampilkan SweetAlert jika session 'success' ada
+  @if(Session::has('success'))
+        Swal.fire({
+            title: 'Berhasil!',
+            text: "{{ Session::get('success') }}",
+            icon: 'success',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
         });
-
-        $(".edit").click(function(){
+        @endif
+    
+        // Menampilkan SweetAlert jika session 'warning' ada
+        @if(Session::has('warning'))
+        Swal.fire({
+            title: 'Gagal!',
+            text: "{{ Session::get('warning') }}",
+            icon: 'error',
+            confirmButtonText: 'OK',
+            timer: 3000,
+            timerProgressBar: true
+        });
+        @endif
+    
+        setTimeout(function() {
+            $('.alert-success').fadeOut('slow');
+        }, 3000);
+    
+        setTimeout(function() {
+            $('.alert-warning').fadeOut('slow');
+        }, 3000);
+    
+        // Menampilkan form edit departemen dengan AJAX
+        $(".edit").click(function() {
             var kode_dept = $(this).attr('kode_dept');
             $.ajax({
                 type: 'POST',
                 url: '/departemen/edit',
-                cache:false,
-                data:{
-                    _token: "{{csrf_token();}}",
+                cache: false,
+                data: {
+                    _token: "{{ csrf_token() }}",
                     kode_dept: kode_dept
                 },
-                success:function(respond){
+                success: function(respond) {
                     $("#loadeditform").html(respond);
                 }
             });
             $("#modal-editdepartemen").modal("show");
         });
-
-        $(".delete-confirm").click(function(e){
+    
+        // Konfirmasi hapus data karyawan
+        $(".delete-confirm").click(function(e) {
             var form = $(this).closest('form');
             e.preventDefault();
             Swal.fire({
-                title: "Apakah Anda Yakin Data ini Mau di Hapus ?",
-                text: " Jika Ya, Maka Data akan Terhapus Permanent",
+                title: "Apakah Anda Yakin Data ini Mau di Hapus?",
+                text: "Jika Ya, Maka Data akan Terhapus Permanen",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Ya, Hapus Saja!"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                        Swal.fire(
-                            "Deleted!",
-                            "Data Berhasil Di Hapus",
-                            "success");
-                    } 
-                });
-        })
-
-        $("#frmKaryawan").submit(function(){
-            var nik = $("#nik").val();
-            var nama_lengkap = $("#nama_lengkap").val();
-            var jabatan = $("#jabatan").val();
-            var no_hp = $("#no_hp").val();
-            var kode_dept = $("#frmKaryawan").find("#kode_dept").val();
-
-            if(nik == ""){
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'NIK Harus di Isi',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#nik").focus();
-                    })
-                return false;
-            } else if (nama_lengkap == "") {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Nama Harus di Isi',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#nama_lengkap").focus();
-                    })
-                return false;
-            } else if (jabatan == "") {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Jabatan Harus di Isi',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#jabatan").focus();
-                    })
-                return false;
-            } else if ( no_hp == "") {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'No HP Harus di Isi',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#no_hp").focus();
-                    })
-                return false;
-            } else if (kode_dept == "") {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: 'Departemen Harus di Isi',
-                    icon: 'warning',
-                    confirmButtonText: 'OK'
-                    }).then((result)=> {
-                        $("#kode_dept").focus();
-                    })
-                return false;
-            }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit(); 
+                }
+            });
         });
+        
+          // Validasi form tambah Jabatan
+          $("#frmDepartemen").submit(function() {
+            var kode_dept = $("#kode_dept").val();
+            var nama_dept = $("#nama_dept").val();
+    
+            // Validasi setiap field
+            if (kode_dept == "") {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Kode Jabatan Harus di Isi',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    $("#kode_dept").focus();
+                });
+                return false;
+            } else if (nama_dept == "") {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Nama Jabatan Harus di Isi',
+                    icon: 'warning',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    $("#nama_dept").focus();
+                });
+                return false;
+            } 
+        });
+
     });
-   </script>
+</script>
 @endpush
