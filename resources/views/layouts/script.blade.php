@@ -34,8 +34,6 @@
 <!-- Base JS File -->
 <script src="{{ asset('assets/js/base.js') }}"></script>
 
-<script>
-   
-</script>
+<script></script>
 
 @stack('myscript')
