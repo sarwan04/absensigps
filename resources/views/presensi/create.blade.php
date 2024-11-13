@@ -18,16 +18,16 @@
         .webcam-capture video,
         #map {
             display: block;
-            width: 100% !important; 
+            width: 100% !important;
             height: auto !important;
             border-radius: 15px;
-            min-height: 100%; 
+            min-height: 100%;
         }
 
         .wrapper {
             display: flex;
-            justify-content: space-around; 
-            align-items: center; 
+            justify-content: space-around;
+            align-items: center;
             width: 100%;
         }
 
@@ -38,58 +38,58 @@
         /* Gaya khusus untuk iPad dan tablet */
         @media (max-width: 810px) and (min-width: 768px) {
             .row {
-                justify-content: center; 
+                justify-content: center;
             }
 
             .col-md-5 {
-                width: 100%; 
-                margin: 0; 
+                width: 100%;
+                margin: 0;
             }
 
             .webcam-capture,
             #map {
-                min-height: 300px; 
+                min-height: 300px;
             }
 
             .btn {
-                width: calc(100% - 40px); 
-                min-height: 50px; 
-                font-size: 16px; 
-                padding: 10px; 
-                margin: 10px 20px; 
+                width: calc(100% - 40px);
+                min-height: 50px;
+                font-size: 16px;
+                padding: 10px;
+                margin: 10px 20px;
             }
         }
 
         /* Gaya untuk Mobile */
         @media (max-width: 768px) {
             .row {
-                flex-direction: column; 
-                margin-top: 20px; 
-                align-items: center; 
+                flex-direction: column;
+                margin-top: 20px;
+                align-items: center;
             }
 
             .col-md-5 {
-                width: calc(100% - 40px); 
-                margin: 0 20px; 
+                width: calc(100% - 40px);
+                margin: 0 20px;
                 margin-bottom: 20px;
             }
 
             .webcam-capture {
-                min-height: 180px; 
+                min-height: 180px;
             }
 
             #map {
-                min-height: 180px; 
-                margin-top: 10px; 
+                min-height: 180px;
+                margin-top: 10px;
             }
 
             .btn {
-                font-size: 16px; 
-                padding: 10px; 
+                font-size: 16px;
+                padding: 10px;
             }
 
             .alert {
-                font-size: 14px; 
+                font-size: 14px;
             }
 
             .appHeader {
@@ -97,23 +97,23 @@
             }
 
             .pageTitle {
-                font-size: 20px; 
+                font-size: 20px;
             }
         }
 
         /* Opsional: Perangkat yang lebih kecil */
         @media (max-width: 576px) {
             .btn {
-                font-size: 14px; 
-                padding: 8px; 
+                font-size: 14px;
+                padding: 8px;
             }
 
             .col-10 {
-                width: calc(100% - 20px); 
+                width: calc(100% - 20px);
             }
 
             .pageTitle {
-                font-size: 18px; 
+                font-size: 18px;
             }
         }
     </style>
@@ -156,128 +156,128 @@
     </div>
 
     <audio id="notifikasi_in">
-        <source src="{{ asset('assets/sound/notifikasi_in.mp3')}}" type="audio/mpeg">
+        <source src="{{ asset('assets/sound/notifikasi_in.mp3') }}" type="audio/mpeg">
     </audio>
 
     <audio id="notifikasi_out">
-        <source src="{{ asset('assets/sound/notifikasi_out.mp3')}}" type="audio/mpeg">
+        <source src="{{ asset('assets/sound/notifikasi_out.mp3') }}" type="audio/mpeg">
     </audio>
 
     <audio id="radius_sound">
-        <source src="{{ asset('assets/sound/radius.mp3')}}" type="audio/mpeg">
+        <source src="{{ asset('assets/sound/radius.mp3') }}" type="audio/mpeg">
     </audio>
 @endsection
 
 @push('myscript')
-<script>
-    var notifikasi_in = document.getElementById('notifikasi_in');
-    var notifikasi_out = document.getElementById('notifikasi_out');
-    var radius_sound = document.getElementById('radius_sound');
+    <script>
+        var notifikasi_in = document.getElementById('notifikasi_in');
+        var notifikasi_out = document.getElementById('notifikasi_out');
+        var radius_sound = document.getElementById('radius_sound');
 
-    // Setup Webcam
-    Webcam.set({
-        height: 480,
-        width: 640,
-        image_format: 'jpeg',
-        jpeg_quality: 80
-    });
+        // Setup Webcam
+        Webcam.set({
+            height: 480,
+            width: 640,
+            image_format: 'jpeg',
+            jpeg_quality: 80
+        });
 
-    Webcam.attach('.webcam-capture');
+        Webcam.attach('.webcam-capture');
 
-    var lokasi = document.getElementById('lokasi');
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-    }
-
-    function successCallback(position) {
-        lokasi.value = position.coords.latitude + "," + position.coords.longitude;
-
-        // Setup Map
-        var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
-        var lokasi_kantor = "{{ $lok_kantor->lokasi_kantor }}";
-        var lok = lokasi_kantor.split(",");
-        var lat_kantor = lok[0];
-        var long_kantor = lok[1];
-        var radius = "{{ $lok_kantor->radius }}";
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-
-        // Lokasi Kantor
-        var circle = L.circle([lat_kantor, long_kantor], {
-            color: 'red',
-            fillColor: '#f03',
-            fillOpacity: 0.5,
-            radius: radius
-        }).addTo(map);
-    }
-
-    function errorCallback() {
-        console.error("Geolocation error");
-    }
-
-    // Absen Logic
-    $('#takeabsen').click(function(e) {
-    Webcam.snap(function(uri) {
-        image = uri;
-    });
-
-    var lokasi = $('#lokasi').val();
-    $.ajax({
-        type: 'POST',
-        url: '/presensi/store',
-        data: {
-            _token: "{{ csrf_token() }}",
-            image: image,
-            lokasi: lokasi
-        },
-        cache: false,
-        success: function(respond) {
-            var status = respond.split("|");
-            if (status[0] === "success") {
-                if (status[2] === "in") {
-                    notifikasi_in.play();
-                } else {
-                    notifikasi_out.play();
-                }
-                Swal.fire({
-                    title: 'Berhasil!',
-                    text: status[1],
-                    icon: 'success'
-                });
-                setTimeout(() => {
-                    location.href = '/dashboard';
-                }, 3000);
-            } else if (status[0] === "warning") {
-                Swal.fire({
-                    title: 'Warning!',
-                    text: status[1],
-                    icon: 'warning'
-                });
-                if (status[2] === "radius") {
-                    radius_sound.play();
-                }
-            } else {
-                Swal.fire({
-                    title: 'Error!',
-                    text: status[1],
-                    icon: 'error'
-                });
-            }
+        var lokasi = document.getElementById('lokasi');
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
         }
-    });
-});
+
+        function successCallback(position) {
+            lokasi.value = position.coords.latitude + "," + position.coords.longitude;
+
+            // Setup Map
+            var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+            var lokasi_kantor = "{{ $lok_kantor->lokasi_kantor }}";
+            var lok = lokasi_kantor.split(",");
+            var lat_kantor = lok[0];
+            var long_kantor = lok[1];
+            var radius = "{{ $lok_kantor->radius }}";
+
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(map);
+
+            var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
+
+            // Lokasi Kantor
+            var circle = L.circle([lat_kantor, long_kantor], {
+                color: 'red',
+                fillColor: '#f03',
+                fillOpacity: 0.5,
+                radius: radius
+            }).addTo(map);
+        }
+
+        function errorCallback() {
+            console.error("Geolocation error");
+        }
+
+        // Absen Logic
+        $('#takeabsen').click(function(e) {
+            Webcam.snap(function(uri) {
+                image = uri;
+            });
+
+            var lokasi = $('#lokasi').val();
+            $.ajax({
+                type: 'POST',
+                url: '/presensi/store',
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    image: image,
+                    lokasi: lokasi
+                },
+                cache: false,
+                success: function(respond) {
+                    var status = respond.split("|");
+                    if (status[0] === "success") {
+                        if (status[2] === "in") {
+                            notifikasi_in.play();
+                        } else {
+                            notifikasi_out.play();
+                        }
+                        Swal.fire({
+                            title: 'Berhasil!',
+                            text: status[1],
+                            icon: 'success'
+                        });
+                        setTimeout(() => {
+                            location.href = '/dashboard';
+                        }, 3000);
+                    } else if (status[0] === "warning") {
+                        Swal.fire({
+                            title: 'Warning!',
+                            text: status[1],
+                            icon: 'warning'
+                        });
+                        if (status[2] === "radius") {
+                            radius_sound.play();
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: status[1],
+                            icon: 'error'
+                        });
+                    }
+                }
+            });
+        });
 
 
-    $(document).ready(function () {
-        // Menghilangkan pesan gagal setelah 3 detik
-        setTimeout(function () {
-          $('.alert').fadeOut('slow');
-        }, 3000);
-      });
-</script>
+        $(document).ready(function() {
+            // Menghilangkan pesan gagal setelah 3 detik
+            setTimeout(function() {
+                $('.alert').fadeOut('slow');
+            }, 3000);
+        });
+    </script>
 @endpush

@@ -57,7 +57,8 @@
         }
 
         .tabelpresensi .libur {
-            background: red; /* Warna untuk hari libur */
+            background: red;
+            /* Warna untuk hari libur */
         }
 
         .foto {
@@ -107,11 +108,13 @@
         /* Hide print buttons when printing */
         @media print {
             .tabelpresensi .libur {
-                background: red !important; /* Pastikan tetap merah saat dicetak */
+                background: red !important;
+                /* Pastikan tetap merah saat dicetak */
             }
 
             .print-buttons {
-                display: none; /* Sembunyikan tombol cetak saat mencetak */
+                display: none;
+                /* Sembunyikan tombol cetak saat mencetak */
             }
         }
     </style>
@@ -121,7 +124,8 @@
     <!-- Print and Export Buttons -->
     <div class="print-buttons">
         <button onclick="window.print()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                 <path d="M17 17h2a2 2 0 0 0 2 -2v-4a2 2 0 0 0 -2 -2h-14a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h2" />
                 <path d="M17 9v-4a2 2 0 0 0 -2 -2h-6a2 2 0 0 0 -2 2v4" />
@@ -135,29 +139,31 @@
         <table style="width: 100%">
             <tr>
                 <td style="width: 100px">
-                    <img src="{{ asset('assets/img/logorokanhulu.png')}}" width="80" alt="">
+                    <img src="{{ asset('assets/img/logorokanhulu.png') }}" width="80" alt="">
                 </td>
                 <td>
                     <span id="title">
                         LAPORAN ABSENSI PEGAWAI <br>
-                        PERIODE {{ strtoupper($namabulan[$bulan])}} {{ $tahun}} <br>
+                        PERIODE {{ strtoupper($namabulan[$bulan]) }} {{ $tahun }} <br>
                         KECAMATAN KEPENUHAN <br>
                     </span>
-                    <span>Jl. Syekh Abdul Wahab Rokan, Kepenuhan Tengah, Kec. Kepenuhan, Kabupaten Rokan Hulu, Riau.</span>
+                    <span>Jl. Syekh Abdul Wahab Rokan, Kepenuhan Tengah, Kec. Kepenuhan, Kabupaten Rokan Hulu,
+                        Riau.</span>
                 </td>
             </tr>
         </table>
 
         <table class="tabeldatakaryawan">
             <tr>
-              <td rowspan="6">
-                @php
-                    $path = Storage::url('uploads/karyawan/'.$karyawan->foto);
-                    $pathImageDefault = Storage::url('uploads/nophoto/nophoto.png');
-                @endphp
-                <img src="{{ $karyawan->foto ? url($path) : url($pathImageDefault) }}" alt="Deskripsi Gambar" style="width: 150px; height: 150px; object-fit: cover;">
-            </td>
-            
+                <td rowspan="6">
+                    @php
+                        $path = Storage::url('uploads/karyawan/' . $karyawan->foto);
+                        $pathImageDefault = Storage::url('uploads/nophoto/nophoto.png');
+                    @endphp
+                    <img src="{{ $karyawan->foto ? url($path) : url($pathImageDefault) }}" alt="Deskripsi Gambar"
+                        style="width: 150px; height: 150px; object-fit: cover;">
+                </td>
+
             </tr>
             <tr>
                 <td>NIP</td>
@@ -197,48 +203,48 @@
                 <th>Keterangan</th>
             </tr>
             @foreach ($presensi as $d)
-            @php
-            $path_in = Storage::url('uploads/absensi/'.$d->foto_in);
-            $path_out = Storage::url('uploads/absensi/'.$d->foto_out);
-            $tanggal = date("d-m-Y", strtotime($d->tgl_presensi));
-            $dayOfWeek = date("N", strtotime($d->tgl_presensi)); // Mendapatkan hari dalam bentuk angka (1=Senin, 7=Minggu)
-            @endphp
-            <tr class="{{ $dayOfWeek == 6 || $dayOfWeek == 7 ? 'libur' : '' }}">
-                <td>{{ $loop->iteration }}</td>
-                <td>{{ $tanggal }}</td>
-                <td>{{ $d->jam_in }}</td>
-                <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
-                <td>{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</td>
-                <td>
-                    @if ($d->jam_out != null)
-                    <img src="{{ url($path_out) }}" alt="" class="foto">
-                    @else
-                    <img src="{{ asset('assets/img/nophoto.png') }}" alt="" class="foto">
-                    @endif
-                </td>
-                <td>
-                    @if($d->jam_in > '08:00')
-                    Terlambat
-                    @else
-                    Tepat waktu
-                    @endif
-                </td>
-            </tr>
-            @if ($loop->iteration == 15)
-        </table>
-        </section>
-
-        <section class="sheet padding-10mm page-break">
-            <table class="tabelpresensi">
-                <tr>
-                    <th>No.</th>
-                    <th>Tanggal</th>
-                    <th>Jam Masuk</th>
-                    <th>Foto</th>
-                    <th>Jam Pulang</th>
-                    <th>Foto</th>
-                    <th>Keterangan</th>
+                @php
+                    $path_in = Storage::url('uploads/absensi/' . $d->foto_in);
+                    $path_out = Storage::url('uploads/absensi/' . $d->foto_out);
+                    $tanggal = date('d-m-Y', strtotime($d->tgl_presensi));
+                    $dayOfWeek = date('N', strtotime($d->tgl_presensi)); // Mendapatkan hari dalam bentuk angka (1=Senin, 7=Minggu)
+                @endphp
+                <tr class="{{ $dayOfWeek == 6 || $dayOfWeek == 7 ? 'libur' : '' }}">
+                    <td>{{ $loop->iteration }}</td>
+                    <td>{{ $tanggal }}</td>
+                    <td>{{ $d->jam_in }}</td>
+                    <td><img src="{{ url($path_in) }}" alt="" class="foto"></td>
+                    <td>{{ $d->jam_out != null ? $d->jam_out : 'Belum Absen' }}</td>
+                    <td>
+                        @if ($d->jam_out != null)
+                            <img src="{{ url($path_out) }}" alt="" class="foto">
+                        @else
+                            <img src="{{ asset('assets/img/nophoto.png') }}" alt="" class="foto">
+                        @endif
+                    </td>
+                    <td>
+                        @if ($d->jam_in > '08:00')
+                            Terlambat
+                        @else
+                            Tepat waktu
+                        @endif
+                    </td>
                 </tr>
+                @if ($loop->iteration == 15)
+        </table>
+    </section>
+
+    <section class="sheet padding-10mm page-break">
+        <table class="tabelpresensi">
+            <tr>
+                <th>No.</th>
+                <th>Tanggal</th>
+                <th>Jam Masuk</th>
+                <th>Foto</th>
+                <th>Jam Pulang</th>
+                <th>Foto</th>
+                <th>Keterangan</th>
+            </tr>
             @endif
             @endforeach
         </table>
