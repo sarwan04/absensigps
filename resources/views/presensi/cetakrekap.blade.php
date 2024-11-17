@@ -32,6 +32,11 @@
             color: black;
         }
 
+        .nama_lengkap {
+            text-align: start !important;
+        }
+
+
         .hadir-bg {
             background-color: rgb(1, 190, 1);
             color: black;
@@ -170,7 +175,7 @@
                 @foreach ($chunk as $d)
                     <tr>
                         <td>{{ $d->nik }}</td>
-                        <td>{{ $d->nama_lengkap }}</td>
+                        <td class="nama_lengkap">{{ $d->nama_lengkap }}</td>
                         <td>{{ $d->jabatan }}</td>
 
                         <?php
