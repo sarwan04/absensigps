@@ -15,7 +15,7 @@ class AbsensiController extends Controller
     public function create()
     {
         $hariini = date("Y-m-d");
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $cek = DB::table('absensi')->where('tgl_absensi', $hariini)->where('nip', $nip)->count();
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
 
@@ -31,7 +31,7 @@ class AbsensiController extends Controller
 
     public function store(Request $request)
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $tgl_absensi = date("Y-m-d");
         $jam = date('H:i:s');
 
@@ -119,7 +119,7 @@ class AbsensiController extends Controller
     private function checkPresence()
     {
         $hariini = date("Y-m-d");
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $cek_in = DB::table('absensi')->where('tgl_absensi', $hariini)->where('nip', $nip)->whereNotNull('jam_in')->exists();
         $cek_out = DB::table('absensi')->where('tgl_absensi', $hariini)->where('nip', $nip)->whereNotNull('jam_out')->exists();
 
@@ -149,23 +149,23 @@ class AbsensiController extends Controller
 
     public function editprofile()
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
-        $karyawan = DB::table('karyawan')->where('nip', $nip)->first();
-        return view('absensi.editprofile', compact('karyawan'));
+        $nip = Auth::guard('pegawai')->user()->nip;
+        $pegawai = DB::table('pegawai')->where('nip', $nip)->first();
+        return view('absensi.editprofile', compact('pegawai'));
     }
 
     public function updateprofile(Request $request)
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $nama_lengkap = $request->nama_lengkap;
         $no_hp = $request->no_hp;
         $password = Hash::make($request->password);
-        $karyawan = DB::table('karyawan')->where('nip', $nip)->first();
+        $pegawai = DB::table('pegawai')->where('nip', $nip)->first();
 
         if ($request->hasFile('foto')) {
             $foto = $nip . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
-            $foto = $karyawan->foto;
+            $foto = $pegawai->foto;
         }
 
         if (empty($request->password)) {
@@ -183,10 +183,10 @@ class AbsensiController extends Controller
             ];
         }
 
-        $update = DB::table('karyawan')->where('nip', $nip)->update($data);
+        $update = DB::table('pegawai')->where('nip', $nip)->update($data);
         if ($update) {
             if ($request->hasFile('foto')) {
-                $folderPath = "public/uploads/karyawan/";
+                $folderPath = "public/uploads/pegawai/";
                 $request->file('foto')->storeAs($folderPath, $foto);
             }
             return Redirect::back()->with(['success' => 'Data Berhasil di Update']);
@@ -206,7 +206,7 @@ class AbsensiController extends Controller
     {
         $bulan = $request->bulan;
         $tahun = $request->tahun;
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
 
         $histori = DB::table('absensi')
             ->whereRaw('MONTH(tgl_absensi)="' . $bulan . '"')
@@ -220,7 +220,7 @@ class AbsensiController extends Controller
 
     public function izin()
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $dataizin = DB::table('pengajuan_izin')->where('nip', $nip)->get();
         return view('absensi.izin', compact('dataizin'));
     }
@@ -233,7 +233,7 @@ class AbsensiController extends Controller
 
     public function storeizin(Request $request)
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $tgl_izin = $request->tgl_izin;
         $status = $request->status;
         $keterangan = $request->keterangan;
@@ -304,8 +304,8 @@ class AbsensiController extends Controller
         $tanggal = $request->tanggal;
         $absensi = DB::table('absensi')
             ->select('absensi.*', 'nama_lengkap', 'nama_dept')
-            ->join('karyawan', 'absensi.nip', '=', 'karyawan.nip')
-            ->join('departemen', 'karyawan.kode_dept', '=', 'departemen.kode_dept')
+            ->join('pegawai', 'absensi.nip', '=', 'pegawai.nip')
+            ->join('departemen', 'pegawai.kode_dept', '=', 'departemen.kode_dept')
             ->where('tgl_absensi', $tanggal)
             ->get();
 
@@ -316,7 +316,7 @@ class AbsensiController extends Controller
     {
         $id = $request->id;
         $absensi = DB::table('absensi')->where('id', $id)
-            ->join('karyawan', 'absensi.nip', '=', 'karyawan.nip')
+            ->join('pegawai', 'absensi.nip', '=', 'pegawai.nip')
             ->first();
         return view('absensi.showmap', compact('absensi'));
     }
@@ -324,8 +324,8 @@ class AbsensiController extends Controller
     public function laporan()
     {
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $karyawan = DB::table('karyawan')->orderBy('nama_lengkap')->get();
-        return view('absensi.laporan', compact('namabulan', 'karyawan'));
+        $pegawai = DB::table('pegawai')->orderBy('nama_lengkap')->get();
+        return view('absensi.laporan', compact('namabulan', 'pegawai'));
     }
 
     public function cetaklaporan(Request $request)
@@ -335,8 +335,8 @@ class AbsensiController extends Controller
         $bulan = $request->bulan;
         $tahun = $request->tahun;
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
-        $karyawan = DB::table('karyawan')->where('nip', $nip)
-            ->join('departemen', 'karyawan.kode_dept', '=', 'departemen.kode_dept')
+        $pegawai = DB::table('pegawai')->where('nip', $nip)
+            ->join('departemen', 'pegawai.kode_dept', '=', 'departemen.kode_dept')
             ->first();
         $absensi = DB::table('absensi')
             ->where('nip', $nip)
@@ -345,7 +345,7 @@ class AbsensiController extends Controller
             ->orderBy('tgl_absensi')
             ->get();
 
-        return view('absensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'karyawan', 'absensi'));
+        return view('absensi.cetaklaporan', compact('bulan', 'tahun', 'namabulan', 'pegawai', 'absensi'));
     }
 
     public function rekap()
@@ -361,14 +361,14 @@ class AbsensiController extends Controller
         $namabulan = ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
         // Mendefinisikan fields untuk query
-        $fields = 'absensi.nip, karyawan.nama_lengkap, departemen.nama_dept';
+        $fields = 'absensi.nip, pegawai.nama_lengkap, departemen.nama_dept';
         for ($i = 1; $i <= 31; $i++) {
             $fields .= ", MAX(IF(DAY(tgl_absensi) = $i, 
                         IF(jam_in IS NOT NULL, 'H', 
                             IF(EXISTS (
                                 SELECT 1 
                                 FROM pengajuan_izin 
-                                WHERE pengajuan_izin.nip = karyawan.nip 
+                                WHERE pengajuan_izin.nip = pegawai.nip 
                                 AND DATE(pengajuan_izin.tgl_izin) = DATE(CONCAT('$tahun-', '$bulan', '-', $i))
                                 AND pengajuan_izin.status_approved = 1
                             ), 'I', 'A')), 
@@ -376,17 +376,17 @@ class AbsensiController extends Controller
         }
 
         $rekap = DB::table('absensi')
-            ->join('karyawan', 'absensi.nip', '=', 'karyawan.nip')
+            ->join('pegawai', 'absensi.nip', '=', 'pegawai.nip')
             ->leftJoin('pengajuan_izin', function ($join) use ($bulan, $tahun) {
-                $join->on('karyawan.nip', '=', 'pengajuan_izin.nip')
+                $join->on('pegawai.nip', '=', 'pengajuan_izin.nip')
                     ->whereMonth('pengajuan_izin.tgl_izin', $bulan)
                     ->whereYear('pengajuan_izin.tgl_izin', $tahun);
             })
-            ->join('departemen', 'karyawan.kode_dept', '=', 'departemen.kode_dept')
+            ->join('departemen', 'pegawai.kode_dept', '=', 'departemen.kode_dept')
             ->select(
                 'absensi.nip',
-                'karyawan.nama_lengkap',
-                'karyawan.jabatan',
+                'pegawai.nama_lengkap',
+                'pegawai.jabatan',
                 'departemen.nama_dept',
                 DB::raw($fields),
                 DB::raw("GROUP_CONCAT(DISTINCT DATE_FORMAT(pengajuan_izin.tgl_izin, '%Y-%m-%d') SEPARATOR ', ') as tgl_izin"),
@@ -395,7 +395,7 @@ class AbsensiController extends Controller
             )
             ->whereMonth('absensi.tgl_absensi', $bulan)
             ->whereYear('absensi.tgl_absensi', $tahun)
-            ->groupBy('absensi.nip', 'karyawan.nama_lengkap', 'departemen.nama_dept')
+            ->groupBy('absensi.nip', 'pegawai.nama_lengkap', 'departemen.nama_dept')
             ->get();
 
         return view('absensi.cetakrekap', compact('bulan', 'tahun', 'namabulan', 'rekap'));
@@ -406,7 +406,7 @@ class AbsensiController extends Controller
 
         $query = Pengajuanizin::query();
         $query->select('id', 'tgl_izin', 'pengajuan_izin.nip', 'nama_lengkap', 'jabatan', 'status', 'status_approved', 'keterangan');
-        $query->join('karyawan', 'pengajuan_izin.nip', '=', 'karyawan.nip');
+        $query->join('pegawai', 'pengajuan_izin.nip', '=', 'pegawai.nip');
         if (!empty($request->dari) && !empty($request->sampai)) {
             $query->whereBetween('tgl_izin', [$request->dari, $request->sampai]);
         }
@@ -458,7 +458,7 @@ class AbsensiController extends Controller
     public function cekpengajuanizin(Request $request)
     {
         $tgl_izin = $request->tgl_izin;
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
 
         $cek = DB::table('pengajuan_izin')->where('nip', $nip)->where('tgl_izin', $tgl_izin)->count();
         return $cek;
@@ -466,7 +466,7 @@ class AbsensiController extends Controller
 
     public function lokasi()
     {
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
         $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
 
         return view('absensi.lokasi_user', compact('lok_kantor'));

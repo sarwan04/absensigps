@@ -46,7 +46,7 @@
                                         {{ $rekapabsensi->jmlhadir }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Hadir
+                                        Pegawai Hadir
                                     </div>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                                         {{ $rekapizin->jmlizin != null ? $rekapizin->jmlizin : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Izin
+                                        Pegawai Izin
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                                         {{ $rekapizin->jmlsakit != null ? $rekapizin->jmlsakit : 0 }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Sakit
+                                        Pegawai Sakit
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +145,7 @@
                                         {{ $rekapabsensi->jmlterlambat }}
                                     </div>
                                     <div class="text-secondary">
-                                        Karyawan Terlambat
+                                        Pegawai Terlambat
                                     </div>
                                 </div>
                             </div>

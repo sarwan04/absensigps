@@ -27,12 +27,12 @@
             text-align: center;
         }
 
-        .tabeldatakaryawan {
+        .tabeldatapegawai {
             margin-top: 40px;
             page-break-inside: avoid;
         }
 
-        .tabeldatakaryawan tr td {
+        .tabeldatapegawai tr td {
             padding: 5px;
         }
 
@@ -153,14 +153,14 @@
             </tr>
         </table>
 
-        <table class="tabeldatakaryawan">
+        <table class="tabeldatapegawai">
             <tr>
                 <td rowspan="6">
                     @php
-                        $path = Storage::url('uploads/karyawan/' . $karyawan->foto);
+                        $path = Storage::url('uploads/pegawai/' . $pegawai->foto);
                         $pathImageDefault = Storage::url('uploads/nophoto/nophoto.png');
                     @endphp
-                    <img src="{{ $karyawan->foto ? url($path) : url($pathImageDefault) }}" alt="Deskripsi Gambar"
+                    <img src="{{ $pegawai->foto ? url($path) : url($pathImageDefault) }}" alt="Deskripsi Gambar"
                         style="width: 150px; height: 150px; object-fit: cover;">
                 </td>
 
@@ -168,27 +168,27 @@
             <tr>
                 <td>NIP</td>
                 <td>:</td>
-                <td>{{ $karyawan->nip }}</td>
+                <td>{{ $pegawai->nip }}</td>
             </tr>
             <tr>
-                <td>Nama Karyawan</td>
+                <td>Nama pegawai</td>
                 <td>:</td>
-                <td>{{ $karyawan->nama_lengkap }}</td>
+                <td>{{ $pegawai->nama_lengkap }}</td>
             </tr>
             <tr>
                 <td>Jabatan</td>
                 <td>:</td>
-                <td>{{ $karyawan->jabatan }}</td>
+                <td>{{ $pegawai->jabatan }}</td>
             </tr>
             <tr>
                 <td>Departemen</td>
                 <td>:</td>
-                <td>{{ $karyawan->nama_dept }}</td>
+                <td>{{ $pegawai->nama_dept }}</td>
             </tr>
             <tr>
                 <td>No. HP</td>
                 <td>:</td>
-                <td>{{ $karyawan?->no_hp }}</td>
+                <td>{{ $pegawai?->no_hp }}</td>
             </tr>
         </table>
 

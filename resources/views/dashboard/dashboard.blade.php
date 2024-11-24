@@ -21,9 +21,9 @@
         </a>
         <div id="user-detail">
             <div class="avatar">
-                @if (!empty(Auth::guard('karyawan')->user()->foto))
+                @if (!empty(Auth::guard('pegawai')->user()->foto))
                     @php
-                        $path = Storage::url('uploads/karyawan/' . Auth::guard('karyawan')->user()->foto);
+                        $path = Storage::url('uploads/pegawai/' . Auth::guard('pegawai')->user()->foto);
                     @endphp
                     <img src="{{ url($path) }}" alt="avatar" class="imaged w64"
                         style="height: 60px; width: 60px; object-fit: cover;">
@@ -32,8 +32,8 @@
                 @endif
             </div>
             <div id="user-info">
-                <h2 id="user-name">{{ Auth::guard('karyawan')->user()->nama_lengkap }}</h2>
-                <span id="user-role">{{ Auth::guard('karyawan')->user()->jabatan }}</span>
+                <h2 id="user-name">{{ Auth::guard('pegawai')->user()->nama_lengkap }}</h2>
+                <span id="user-role">{{ Auth::guard('pegawai')->user()->jabatan }}</span>
             </div>
         </div>
     </div>

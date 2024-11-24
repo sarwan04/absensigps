@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'karyawan' => [
+        'pegawai' => [
             'driver' => 'session',
-            'provider' => 'karyawans',
+            'provider' => 'pegawais',
         ],
 
         'user' => [
@@ -74,9 +74,9 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        'karyawans' => [
+        'pegawais' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Karyawan::class),
+            'model' => env('AUTH_MODEL', App\Models\Pegawai::class),
         ],
 
         // 'users' => [

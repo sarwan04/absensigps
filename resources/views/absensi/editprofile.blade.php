@@ -15,13 +15,13 @@
 @endsection
 
 @section('content')
-    <form style="margin-top: 4rem" action="/absensi/{{ $karyawan->nip }}/updateprofile" method="POST"
+    <form style="margin-top: 4rem" action="/absensi/{{ $pegawai->nip }}/updateprofile" method="POST"
         enctype="multipart/form-data">
         @csrf
         <div class="col">
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" name="nama_lengkap" value="{{ $karyawan->nama_lengkap }}"
+                    <input type="text" class="form-control" name="nama_lengkap" value="{{ $pegawai->nama_lengkap }}"
                         placeholder="Nama Lengkap" autocomplete="off" maxlength="100" id="namaLengkapInput">
                     <small id="charWarningNama" style="color: red; display: none;">Maksimal 100 karakter!</small>
                 </div>
@@ -29,7 +29,7 @@
 
             <div class="form-group boxed">
                 <div class="input-wrapper">
-                    <input type="text" class="form-control" name="no_hp" value="{{ $karyawan->no_hp }}"
+                    <input type="text" class="form-control" name="no_hp" value="{{ $pegawai->no_hp }}"
                         placeholder="No. HP" autocomplete="off" maxlength="14" id="noHpInput">
                     <small id="charWarningnoHp" style="color: red; display: none;">Maksimal 14 karakter!</small>
                 </div>

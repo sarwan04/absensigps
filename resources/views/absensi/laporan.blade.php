@@ -63,7 +63,7 @@
                                         <div class="form-group">
                                             <select name="nip" id="nip" class="form-select">
                                                 <option value="">Pegawai</option>
-                                                @foreach ($karyawan as $d)
+                                                @foreach ($pegawai as $d)
                                                     <option value="{{ $d->nip }}">{{ $d->nama_lengkap }}</option>
                                                 @endforeach
                                             </select>

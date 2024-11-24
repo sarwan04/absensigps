@@ -312,7 +312,7 @@
                 $("#modal-editdepartemen").modal("show");
             });
 
-            // Konfirmasi hapus data karyawan
+            // Konfirmasi hapus data pegawai
             $(".delete-confirm").click(function(e) {
                 var form = $(this).closest('form');
                 e.preventDefault();

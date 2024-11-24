@@ -9,10 +9,10 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 
-class Karyawan extends Authenticatable
+class Pegawai extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    protected $table = "karyawan";
+    protected $table = "pegawai";
     protected $primaryKey = "nip";
     protected $fillable = [
         'nip',

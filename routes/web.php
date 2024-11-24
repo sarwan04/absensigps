@@ -4,7 +4,7 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartemenController;
-use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\KonfigurasiController;
 use App\Http\Controllers\AsbensiController;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +24,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 
 // USER
-Route::middleware(['guest:karyawan'])->group(function () {
+Route::middleware(['guest:pegawai'])->group(function () {
     Route::get('/', function () {
         return view('auth.login');
     })->name('login');
@@ -41,7 +41,7 @@ Route::middleware(['guest:user'])->group(function () {
 });
 
 // Route USER
-Route::middleware(['auth:karyawan'])->group(function () {
+Route::middleware(['auth:pegawai'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/proseslogout', [AuthController::class, 'proseslogout']);
 
@@ -77,12 +77,12 @@ Route::middleware(['auth:user'])->group(function () {
     Route::get('/proseslogoutadmin', [AuthController::class, 'proseslogoutadmin']);
     Route::get('/admin/dashboardadmin', [DashboardController::class, 'dashboardadmin']);
 
-    // Karyawan
-    Route::get('/karyawan', [KaryawanController::class, 'index']);
-    Route::post('/karyawan/store', [KaryawanController::class, 'store']);
-    Route::post('/karyawan/edit', [KaryawanController::class, 'edit']);
-    Route::post('/karyawan/{nik}/update', [KaryawanController::class, 'update']);
-    Route::post('/karyawan/{nik}/delete', [KaryawanController::class, 'delete']);
+    // pegawai
+    Route::get('/pegawai', [PegawaiController::class, 'index']);
+    Route::post('/pegawai/store', [PegawaiController::class, 'store']);
+    Route::post('/pegawai/edit', [PegawaiController::class, 'edit']);
+    Route::post('/pegawai/{nik}/update', [PegawaiController::class, 'update']);
+    Route::post('/pegawai/{nik}/delete', [PegawaiController::class, 'delete']);
 
     // Departement
     Route::get('/departemen', [DepartemenController::class, 'index']);

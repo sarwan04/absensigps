@@ -13,7 +13,7 @@ class DashboardController extends Controller
         $hariini = date('Y-m-d');
         $bulanini = date('m') * 1;
         $tahunini = date('Y');
-        $nip = Auth::guard('karyawan')->user()->nip;
+        $nip = Auth::guard('pegawai')->user()->nip;
 
         $absensihariini = DB::table('absensi')->where('nip', $nip)->where('tgl_absensi', $hariini)->first();
 
@@ -32,7 +32,7 @@ class DashboardController extends Controller
             ->first();
 
         $leaderboard = DB::table('absensi')
-            ->join('karyawan', 'absensi.nip', '=', 'karyawan.nip')
+            ->join('pegawai', 'absensi.nip', '=', 'pegawai.nip')
             ->where('tgl_absensi', $hariini)
             ->orderBy('jam_in')
             ->get();
@@ -48,7 +48,7 @@ class DashboardController extends Controller
             ->first();
 
         $izinHariIni = DB::table('pengajuan_izin')
-            ->join('karyawan', 'pengajuan_izin.nip', '=', 'karyawan.nip')
+            ->join('pegawai', 'pengajuan_izin.nip', '=', 'pegawai.nip')
             ->where('tgl_izin', $hariini)
             ->where('status_approved', 1)
             ->select('nama_lengkap', 'jabatan', 'status')

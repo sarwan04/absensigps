@@ -36,9 +36,9 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->is(['karyawan', 'departemen']) ? 'show' : '' }}"
+                    <a class="nav-link dropdown-toggle {{ request()->is(['pegawai', 'departemen']) ? 'show' : '' }}"
                         href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button"
-                        aria-expanded="{{ request()->is(['karyawan', 'departemen']) ? 'true' : '' }}">
+                        aria-expanded="{{ request()->is(['pegawai', 'departemen']) ? 'true' : '' }}">
                         <span class="nav-link-icon d-md-none d-lg-inline-block">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
                                 viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -56,11 +56,11 @@
                         </span>
                     </a>
 
-                    <div class="dropdown-menu {{ request()->is(['karyawan', 'departemen']) ? 'show' : '' }}">
+                    <div class="dropdown-menu {{ request()->is(['pegawai', 'departemen']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item {{ request()->is(['karyawan']) ? 'active' : '' }}"
-                                    href="/karyawan">
+                                <a class="dropdown-item {{ request()->is(['pegawai']) ? 'active' : '' }}"
+                                    href="/pegawai">
                                     Pegawai
                                 </a>
 

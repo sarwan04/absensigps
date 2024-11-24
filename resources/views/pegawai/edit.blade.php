@@ -1,4 +1,4 @@
-<form action="/karyawan/{{ $karyawan->nip }}/update" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+<form action="/pegawai/{{ $pegawai->nip }}/update" method="POST" id="frmpegawai" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-12">
@@ -19,7 +19,7 @@
                         <path d="M19 11l0 2" />
                     </svg>
                 </span>
-                <input type="text" readonly value="{{ $karyawan->nip }}" id="nip" class="form-control"
+                <input type="text" readonly value="{{ $pegawai->nip }}" id="nip" class="form-control"
                     name="nip" placeholder="NIP" maxlength="18">
             </div>
         </div>
@@ -38,7 +38,7 @@
                         <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
                     </svg>
                 </span>
-                <input type="text" value="{{ $karyawan->nama_lengkap }}" id="nama_lengkap" class="form-control"
+                <input type="text" value="{{ $pegawai->nama_lengkap }}" id="nama_lengkap" class="form-control"
                     name="nama_lengkap" placeholder="Nama Lengkap" maxlength="99" required
                     oninvalid="this.setCustomValidity('Nama tidak boleh kosong!')" oninput="this.setCustomValidity('')">
             </div>
@@ -59,8 +59,8 @@
                         <path d="M10.5 7h3l5 5.5" />
                     </svg>
                 </span>
-                <input type="text" value="{{ $karyawan->jabatan }}" id="jabatan" class="form-control"
-                    name="jabatan" placeholder="Jabatan" maxlength="49" required
+                <input type="text" value="{{ $pegawai->jabatan }}" id="jabatan" class="form-control" name="jabatan"
+                    placeholder="Jabatan" maxlength="49" required
                     oninvalid="this.setCustomValidity('Jabatan tidak boleh kosong!')"
                     oninput="this.setCustomValidity('')">
             </div>
@@ -81,7 +81,7 @@
                         <path d="M12 17v.01" />
                     </svg>
                 </span>
-                <input type="text" value="{{ $karyawan->no_hp }}" id="no_hp" class="form-control" name="no_hp"
+                <input type="text" value="{{ $pegawai->no_hp }}" id="no_hp" class="form-control" name="no_hp"
                     placeholder="No HP" maxlength="12">
             </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="col-12">
             <div class="input-icon mb-3">
                 <input type="file" name="foto" class="form-control">
-                <input type="hidden" name="old_foto" value="{{ $karyawan->foto }}">
+                <input type="hidden" name="old_foto" value="{{ $pegawai->foto }}">
             </div>
         </div>
     </div>
@@ -104,7 +104,7 @@
                     oninput="this.setCustomValidity('')">
                     <option value="">Departemen</option>
                     @foreach ($departemen as $d)
-                        <option {{ $karyawan->kode_dept == $d->kode_dept ? 'selected' : '' }}
+                        <option {{ $pegawai->kode_dept == $d->kode_dept ? 'selected' : '' }}
                             value="{{ $d->kode_dept }}">{{ $d->nama_dept }}</option>
                     @endforeach
                 </select>

@@ -2,36 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Karyawan;
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
-class KaryawanController extends Controller
+class PegawaiController extends Controller
 {
     public function index(Request $request)
     {
 
 
-        $query = Karyawan::query();
-        $query->select('karyawan.*', 'nama_dept');
-        $query->join('departemen', 'karyawan.kode_dept', '=', 'departemen.kode_dept');
+        $query = Pegawai::query();
+        $query->select('pegawai.*', 'nama_dept');
+        $query->join('departemen', 'pegawai.kode_dept', '=', 'departemen.kode_dept');
         $query->orderBy('nama_lengkap');
 
-        if (!empty($request->nama_karyawan)) {
-            $query->where('nama_lengkap', 'like', '%' . $request->nama_karyawan . '%');
+        if (!empty($request->nama_pegawai)) {
+            $query->where('nama_lengkap', 'like', '%' . $request->nama_pegawai . '%');
         }
 
         if (!empty($request->kode_dept)) {
-            $query->where('karyawan.kode_dept', $request->kode_dept);
+            $query->where('pegawai.kode_dept', $request->kode_dept);
         }
 
-        $karyawan = $query->paginate(10);
+        $pegawai = $query->paginate(10);
 
         $departemen = DB::table('departemen')->get();
-        return view('karyawan.index', compact('karyawan', 'departemen'));
+        return view('pegawai.index', compact('pegawai', 'departemen'));
     }
 
     public function store(Request $request)
@@ -60,11 +60,11 @@ class KaryawanController extends Controller
                 'password' => $password,
             ];
 
-            $simpan = DB::table('karyawan')->insert($data);
+            $simpan = DB::table('pegawai')->insert($data);
 
             if ($simpan) {
                 if ($request->hasFile('foto')) {
-                    $folderPath = "public/uploads/karyawan/";
+                    $folderPath = "public/uploads/pegawai/";
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
 
@@ -82,9 +82,9 @@ class KaryawanController extends Controller
     {
         $nip = $request->nip;
         $departemen = DB::table('departemen')->get();
-        $karyawan = DB::table('karyawan')->where('nip', $nip)->first();
+        $pegawai = DB::table('pegawai')->where('nip', $nip)->first();
 
-        return view('karyawan.edit', compact('departemen', 'karyawan'));
+        return view('pegawai.edit', compact('departemen', 'pegawai'));
     }
 
     public function update($nip, Request $request)
@@ -113,12 +113,12 @@ class KaryawanController extends Controller
                 'password' => $password,
             ];
 
-            $update = DB::table('karyawan')->where('nip', $nip)->update($data);
+            $update = DB::table('pegawai')->where('nip', $nip)->update($data);
 
             if ($update) {
                 if ($request->hasFile('foto')) {
-                    $folderPath = "public/uploads/karyawan/";
-                    $folderPathOld = "public/uploads/karyawan/" . $old_foto;
+                    $folderPath = "public/uploads/pegawai/";
+                    $folderPathOld = "public/uploads/pegawai/" . $old_foto;
                     Storage::delete($folderPathOld);
                     $request->file('foto')->storeAs($folderPath, $foto);
                 }
@@ -132,7 +132,7 @@ class KaryawanController extends Controller
 
     public function delete($nip)
     {
-        $delete = DB::table('karyawan')->where('nip', $nip)->delete();
+        $delete = DB::table('pegawai')->where('nip', $nip)->delete();
 
         if ($delete) {
             return Redirect::back()->with(['success' => 'Data Berhasil Di Hapus']);

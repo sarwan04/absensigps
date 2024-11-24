@@ -37,7 +37,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="#" class="btn btn-primary" id="btnTambahkaryawan">
+                                    <a href="#" class="btn btn-primary" id="btnTambahpegawai">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                             viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                             stroke-linecap="round" stroke-linejoin="round"
@@ -52,13 +52,13 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-12">
-                                    <form action="/karyawan" method="GET">
+                                    <form action="/pegawai" method="GET">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="form-group">
-                                                    <input type="text" name="nama_karyawan" id="nama_karyawan"
+                                                    <input type="text" name="nama_pegawai" id="nama_pegawai"
                                                         class="form-control" placeholder="Nama Pegawai"
-                                                        value="{{ Request('nama_karyawan') }}">
+                                                        value="{{ Request('nama_pegawai') }}">
                                                 </div>
                                             </div>
                                             <div class="col-4">
@@ -105,13 +105,13 @@
                                                 <th>Aksi</th>
                                             </tr>
                                         <tbody>
-                                            @foreach ($karyawan as $d)
+                                            @foreach ($pegawai as $d)
                                                 @php
-                                                    $path = Storage::url('uploads/karyawan/' . $d->foto);
+                                                    $path = Storage::url('uploads/pegawai/' . $d->foto);
                                                 @endphp
 
                                                 <tr class="align-middle">
-                                                    <td>{{ $loop->iteration + $karyawan->firstItem() - 1 }}</td>
+                                                    <td>{{ $loop->iteration + $pegawai->firstItem() - 1 }}</td>
                                                     <td>{{ $d->nip }}</td>
                                                     <td>{{ $d->nama_lengkap }}</td>
                                                     <td>{{ $d->jabatan }}</td>
@@ -143,7 +143,7 @@
                                                                         d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                                                     <path d="M16 5l3 3" />
                                                                 </svg></a>
-                                                            <form action="/karyawan/{{ $d->nip }}/delete"
+                                                            <form action="/pegawai/{{ $d->nip }}/delete"
                                                                 method="POST" style="margin-left: 5px">
                                                                 @csrf
                                                                 <a class="btn btn-danger btn-md delete-confirm">
@@ -167,7 +167,7 @@
                                         </tbody>
                                         </thead>
                                     </table>
-                                    {{ $karyawan->links('vendor.pagination.bootstrap-5') }}
+                                    {{ $pegawai->links('vendor.pagination.bootstrap-5') }}
                                 </div>
                             </div>
                         </div>
@@ -179,7 +179,7 @@
     </div>
 
     {{-- Modal Input data Pegawai --}}
-    <div class="modal modal-blur fade" id="modal-inputkaryawan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-inputpegawai" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -187,7 +187,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/karyawan/store" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+                    <form action="/pegawai/store" method="POST" id="frmpegawai" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -336,9 +336,9 @@
         </div>
     </div>
 
-    {{-- Modal edit data Karyawan --}}
+    {{-- Modal edit data pegawai --}}
 
-    <div class="modal modal-blur fade" id="modal-editkaryawan" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal modal-blur fade" id="modal-editpegawai" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -357,9 +357,9 @@
 @push('myscript')
     <script>
         $(document).ready(function() {
-            // Menampilkan modal untuk tambah karyawan
-            $("#btnTambahkaryawan").click(function() {
-                $("#modal-inputkaryawan").modal("show");
+            // Menampilkan modal untuk tambah pegawai
+            $("#btnTambahpegawai").click(function() {
+                $("#modal-inputpegawai").modal("show");
             });
 
             // Menampilkan SweetAlert jika session 'success' ada
@@ -394,12 +394,12 @@
                 $('.alert-warning').fadeOut('slow');
             }, 3000);
 
-            // Menampilkan form edit karyawan dengan AJAX
+            // Menampilkan form edit pegawai dengan AJAX
             $(".edit").click(function() {
                 var nip = $(this).attr('nip');
                 $.ajax({
                     type: 'POST',
-                    url: '/karyawan/edit',
+                    url: '/pegawai/edit',
                     cache: false,
                     data: {
                         _token: "{{ csrf_token() }}",
@@ -409,10 +409,10 @@
                         $("#loadeditform").html(respond);
                     }
                 });
-                $("#modal-editkaryawan").modal("show");
+                $("#modal-editpegawai").modal("show");
             });
 
-            // Konfirmasi hapus data karyawan
+            // Konfirmasi hapus data pegawai
             $(".delete-confirm").click(function(e) {
                 var form = $(this).closest('form');
                 e.preventDefault();
