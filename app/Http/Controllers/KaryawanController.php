@@ -36,7 +36,7 @@ class KaryawanController extends Controller
 
     public function store(Request $request)
     {
-        $nik = $request->nik;
+        $nip = $request->nip;
         $nama_lengkap = $request->nama_lengkap;
         $jabatan = $request->jabatan;
         $no_hp = $request->no_hp;
@@ -44,14 +44,14 @@ class KaryawanController extends Controller
         $password = Hash::make('12345');
 
         if ($request->hasFile('foto')) {
-            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $nip . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = null;
         }
 
         try {
             $data =  [
-                'nik' => $nik,
+                'nip' => $nip,
                 'nama_lengkap' => $nama_lengkap,
                 'jabatan' => $jabatan,
                 'no_hp' => $no_hp,
@@ -72,7 +72,7 @@ class KaryawanController extends Controller
             }
         } catch (\Exception $e) {
             if ($e->getCode() == 23000) {
-                $message = " Data dengan NIK " . $nik . " Sudah Ada";
+                $message = " Data dengan NIP " . $nip . " Sudah Ada";
             }
             return Redirect::back()->with(['warning' => 'Data Gagal Disimpan' . $message]);
         }
@@ -80,16 +80,16 @@ class KaryawanController extends Controller
 
     public function edit(Request $request)
     {
-        $nik = $request->nik;
+        $nip = $request->nip;
         $departemen = DB::table('departemen')->get();
-        $karyawan = DB::table('karyawan')->where('nik', $nik)->first();
+        $karyawan = DB::table('karyawan')->where('nip', $nip)->first();
 
         return view('karyawan.edit', compact('departemen', 'karyawan'));
     }
 
-    public function update($nik, Request $request)
+    public function update($nip, Request $request)
     {
-        $nik = $request->nik;
+        $nip = $request->nip;
         $nama_lengkap = $request->nama_lengkap;
         $jabatan = $request->jabatan;
         $no_hp = $request->no_hp;
@@ -98,7 +98,7 @@ class KaryawanController extends Controller
         $old_foto = $request->old_foto;
 
         if ($request->hasFile('foto')) {
-            $foto = $nik . "." . $request->file('foto')->getClientOriginalExtension();
+            $foto = $nip . "." . $request->file('foto')->getClientOriginalExtension();
         } else {
             $foto = $old_foto;
         }
@@ -113,7 +113,7 @@ class KaryawanController extends Controller
                 'password' => $password,
             ];
 
-            $update = DB::table('karyawan')->where('nik', $nik)->update($data);
+            $update = DB::table('karyawan')->where('nip', $nip)->update($data);
 
             if ($update) {
                 if ($request->hasFile('foto')) {
@@ -130,9 +130,9 @@ class KaryawanController extends Controller
         }
     }
 
-    public function delete($nik)
+    public function delete($nip)
     {
-        $delete = DB::table('karyawan')->where('nik', $nik)->delete();
+        $delete = DB::table('karyawan')->where('nip', $nip)->delete();
 
         if ($delete) {
             return Redirect::back()->with(['success' => 'Data Berhasil Di Hapus']);

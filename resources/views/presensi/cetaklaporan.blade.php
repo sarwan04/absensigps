@@ -168,7 +168,7 @@
             <tr>
                 <td>NIP</td>
                 <td>:</td>
-                <td>{{ $karyawan->nik }}</td>
+                <td>{{ $karyawan->nip }}</td>
             </tr>
             <tr>
                 <td>Nama Karyawan</td>

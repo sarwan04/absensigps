@@ -13,26 +13,26 @@ class DashboardController extends Controller
         $hariini = date('Y-m-d');
         $bulanini = date('m') * 1;
         $tahunini = date('Y');
-        $nik = Auth::guard('karyawan')->user()->nik;
+        $nip = Auth::guard('karyawan')->user()->nip;
 
-        $presensihariini = DB::table('presensi')->where('nik', $nik)->where('tgl_presensi', $hariini)->first();
+        $presensihariini = DB::table('presensi')->where('nip', $nip)->where('tgl_presensi', $hariini)->first();
 
         $historibulanini = DB::table('presensi')
-            ->where('nik', $nik)
+            ->where('nip', $nip)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->orderBy('tgl_presensi')
             ->get();
 
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(nik) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
-            ->where('nik', $nik)
+            ->selectRaw('COUNT(nip) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
+            ->where('nip', $nip)
             ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
             ->first();
 
         $leaderboard = DB::table('presensi')
-            ->join('karyawan', 'presensi.nik', '=', 'karyawan.nik')
+            ->join('karyawan', 'presensi.nip', '=', 'karyawan.nip')
             ->where('tgl_presensi', $hariini)
             ->orderBy('jam_in')
             ->get();
@@ -41,14 +41,14 @@ class DashboardController extends Controller
 
         $rekapizin = DB::table('pengajuan_izin')
             ->selectRaw('SUM(IF(status="i",1,0)) as jmlizin, SUM(IF(status="s",1,0)) as jmlsakit')
-            ->where('nik', $nik)
+            ->where('nip', $nip)
             ->whereRaw('MONTH(tgl_izin)="' . $bulanini . '"')
             ->whereRaw('YEAR(tgl_izin)="' . $tahunini . '"')
             ->where('status_approved', 1)
             ->first();
 
         $izinHariIni = DB::table('pengajuan_izin')
-            ->join('karyawan', 'pengajuan_izin.nik', '=', 'karyawan.nik')
+            ->join('karyawan', 'pengajuan_izin.nip', '=', 'karyawan.nip')
             ->where('tgl_izin', $hariini)
             ->where('status_approved', 1)
             ->select('nama_lengkap', 'jabatan', 'status')
@@ -71,7 +71,7 @@ class DashboardController extends Controller
     {
         $hariini = date('Y-m-d');
         $rekappresensi = DB::table('presensi')
-            ->selectRaw('COUNT(nik) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
+            ->selectRaw('COUNT(nip) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
             ->where('tgl_presensi', $hariini)
             ->first();
 

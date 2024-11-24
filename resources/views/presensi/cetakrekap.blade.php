@@ -174,7 +174,7 @@
 
                 @foreach ($chunk as $d)
                     <tr>
-                        <td>{{ $d->nik }}</td>
+                        <td>{{ $d->nip }}</td>
                         <td class="nama_lengkap">{{ $d->nama_lengkap }}</td>
                         <td>{{ $d->jabatan }}</td>
 

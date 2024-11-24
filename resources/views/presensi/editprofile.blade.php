@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <form style="margin-top: 4rem" action="/presensi/{{ $karyawan->nik }}/updateprofile" method="POST"
+    <form style="margin-top: 4rem" action="/presensi/{{ $karyawan->nip }}/updateprofile" method="POST"
         enctype="multipart/form-data">
         @csrf
         <div class="col">

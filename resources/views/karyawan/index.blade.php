@@ -112,7 +112,7 @@
 
                                                 <tr class="align-middle">
                                                     <td>{{ $loop->iteration + $karyawan->firstItem() - 1 }}</td>
-                                                    <td>{{ $d->nik }}</td>
+                                                    <td>{{ $d->nip }}</td>
                                                     <td>{{ $d->nama_lengkap }}</td>
                                                     <td>{{ $d->jabatan }}</td>
                                                     <td>{{ $d->no_hp }}</td>
@@ -130,7 +130,7 @@
                                                     <td class="text-center">
                                                         <div class="btn-group">
                                                             <a href="#" class="edit btn btn-primary btn-md mr-2"
-                                                                nik="{{ $d->nik }}"><svg
+                                                                nip="{{ $d->nip }}"><svg
                                                                     xmlns="http://www.w3.org/2000/svg" width="24"
                                                                     height="24" viewBox="0 0 24 24" fill="none"
                                                                     stroke="currentColor" stroke-width="2"
@@ -143,7 +143,7 @@
                                                                         d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
                                                                     <path d="M16 5l3 3" />
                                                                 </svg></a>
-                                                            <form action="/karyawan/{{ $d->nik }}/delete"
+                                                            <form action="/karyawan/{{ $d->nip }}/delete"
                                                                 method="POST" style="margin-left: 5px">
                                                                 @csrf
                                                                 <a class="btn btn-danger btn-md delete-confirm">
@@ -209,8 +209,8 @@
                                             <path d="M19 11l0 2" />
                                         </svg>
                                     </span>
-                                    <input type="text" value="" id="nik" class="form-control"
-                                        name="nik" placeholder="NIP" maxlength="18" required
+                                    <input type="text" value="" id="nip" class="form-control"
+                                        name="nip" placeholder="NIP" maxlength="18" required
                                         oninvalid="this.setCustomValidity('Nip tidak boleh kosong!')"
                                         oninput="this.setCustomValidity('')">
                                 </div>
@@ -396,14 +396,14 @@
 
             // Menampilkan form edit karyawan dengan AJAX
             $(".edit").click(function() {
-                var nik = $(this).attr('nik');
+                var nip = $(this).attr('nip');
                 $.ajax({
                     type: 'POST',
                     url: '/karyawan/edit',
                     cache: false,
                     data: {
                         _token: "{{ csrf_token() }}",
-                        nik: nik
+                        nip: nip
                     },
                     success: function(respond) {
                         $("#loadeditform").html(respond);

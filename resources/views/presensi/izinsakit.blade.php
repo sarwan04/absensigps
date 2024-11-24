@@ -85,8 +85,8 @@
                                             <path d="M19 11l0 2" />
                                         </svg>
                                     </span>
-                                    <input type="text" value="{{ Request('nik') }}" id="nik" class="form-control"
-                                        name="nik" placeholder="NIP">
+                                    <input type="text" value="{{ Request('nip') }}" id="nip" class="form-control"
+                                        name="nip" placeholder="NIP">
                                 </div>
                             </div>
 
@@ -167,7 +167,7 @@
                                 <tr class="align-middle">
                                     <td> {{ $loop->iteration }}</td>
                                     <td> {{ date('d-m-Y', strtotime($d->tgl_izin)) }}</td>
-                                    <td> {{ $d->nik }}</td>
+                                    <td> {{ $d->nip }}</td>
                                     <td> {{ $d->nama_lengkap }}</td>
                                     <td> {{ $d->jabatan }}</td>
                                     <td> {{ $d->status == 'i' ? 'Izin' : 'Sakit' }}</td>

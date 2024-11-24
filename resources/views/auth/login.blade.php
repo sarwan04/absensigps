@@ -62,7 +62,7 @@
                     @csrf
                     <div class="form-group boxed">
                         <div class="input-wrapper">
-                            <input type="text" name="nik" class="form-control" id="nik" placeholder="NIP"
+                            <input type="text" name="nip" class="form-control" id="nip" placeholder="NIP"
                                 required oninvalid="this.setCustomValidity('Nip tidak boleh kosong!')"
                                 oninput="this.setCustomValidity('')" />
                             <i class="clear-input">

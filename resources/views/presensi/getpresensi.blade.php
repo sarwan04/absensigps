@@ -21,7 +21,7 @@
     @endphp
     <tr>
         <td class="align-middle text-center">{{ $loop->iteration }}</td>
-        <td class="align-middle text-center">{{ $d->nik }}</td>
+        <td class="align-middle text-center">{{ $d->nip }}</td>
         <td class="align-middle">{{ $d->nama_lengkap }}</td>
         <td class="align-middle text-center">{{ $d->nama_dept }}</td>
         <td class="align-middle text-center">{{ $d->jam_in }}</td>

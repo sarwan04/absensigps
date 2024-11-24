@@ -1,4 +1,4 @@
-<form action="/karyawan/{{ $karyawan->nik }}/update" method="POST" id="frmKaryawan" enctype="multipart/form-data">
+<form action="/karyawan/{{ $karyawan->nip }}/update" method="POST" id="frmKaryawan" enctype="multipart/form-data">
     @csrf
     <div class="row">
         <div class="col-12">
@@ -19,8 +19,8 @@
                         <path d="M19 11l0 2" />
                     </svg>
                 </span>
-                <input type="text" readonly value="{{ $karyawan->nik }}" id="nik" class="form-control"
-                    name="nik" placeholder="NIP" maxlength="18">
+                <input type="text" readonly value="{{ $karyawan->nip }}" id="nip" class="form-control"
+                    name="nip" placeholder="NIP" maxlength="18">
             </div>
         </div>
     </div>
