@@ -1,4 +1,4 @@
-@extends('layouts.presensi')
+@extends('layouts.absensi')
 
 @section('header')
     {{-- App Header --}}
@@ -15,7 +15,7 @@
 @endsection
 
 @section('content')
-    <form style="margin-top: 4rem" action="/presensi/{{ $karyawan->nip }}/updateprofile" method="POST"
+    <form style="margin-top: 4rem" action="/absensi/{{ $karyawan->nip }}/updateprofile" method="POST"
         enctype="multipart/form-data">
         @csrf
         <div class="col">

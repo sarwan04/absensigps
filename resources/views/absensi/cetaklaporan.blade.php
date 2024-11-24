@@ -36,27 +36,27 @@
             padding: 5px;
         }
 
-        .tabelpresensi {
+        .tabelabsensi {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
             text-align: center;
         }
 
-        .tabelpresensi tr th,
-        .tabelpresensi tr td {
+        .tabelabsensi tr th,
+        .tabelabsensi tr td {
             border: 1px solid #131212;
             padding: 5px;
             font-size: 12px;
             vertical-align: middle;
         }
 
-        .tabelpresensi tr th {
+        .tabelabsensi tr th {
             background-color: #dbdbdb;
             font-weight: bold;
         }
 
-        .tabelpresensi .libur {
+        .tabelabsensi .libur {
             background: red;
             /* Warna untuk hari libur */
         }
@@ -107,7 +107,7 @@
 
         /* Hide print buttons when printing */
         @media print {
-            .tabelpresensi .libur {
+            .tabelabsensi .libur {
                 background: red !important;
                 /* Pastikan tetap merah saat dicetak */
             }
@@ -192,7 +192,7 @@
             </tr>
         </table>
 
-        <table class="tabelpresensi">
+        <table class="tabelabsensi">
             <tr>
                 <th>No.</th>
                 <th>Tanggal</th>
@@ -202,12 +202,12 @@
                 <th>Foto</th>
                 <th>Keterangan</th>
             </tr>
-            @foreach ($presensi as $d)
+            @foreach ($absensi as $d)
                 @php
                     $path_in = Storage::url('uploads/absensi/' . $d->foto_in);
                     $path_out = Storage::url('uploads/absensi/' . $d->foto_out);
-                    $tanggal = date('d-m-Y', strtotime($d->tgl_presensi));
-                    $dayOfWeek = date('N', strtotime($d->tgl_presensi)); // Mendapatkan hari dalam bentuk angka (1=Senin, 7=Minggu)
+                    $tanggal = date('d-m-Y', strtotime($d->tgl_absensi));
+                    $dayOfWeek = date('N', strtotime($d->tgl_absensi)); // Mendapatkan hari dalam bentuk angka (1=Senin, 7=Minggu)
                 @endphp
                 <tr class="{{ $dayOfWeek == 6 || $dayOfWeek == 7 ? 'libur' : '' }}">
                     <td>{{ $loop->iteration }}</td>
@@ -235,7 +235,7 @@
     </section>
 
     <section class="sheet padding-10mm page-break">
-        <table class="tabelpresensi">
+        <table class="tabelabsensi">
             <tr>
                 <th>No.</th>
                 <th>Tanggal</th>

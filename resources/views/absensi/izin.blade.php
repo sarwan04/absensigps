@@ -1,4 +1,4 @@
-@extends('layouts.presensi')
+@extends('layouts.absensi')
 
 @section('header')
     {{-- App Header --}}
@@ -33,7 +33,8 @@
                             <div class="in">
                                 <div>
                                     <b>{{ date('d-m-Y', strtotime($d->tgl_izin)) }}
-                                        ({{ $d->status == 's' ? 'Sakit' : 'Izin' }})</b>
+                                        ({{ $d->status == 's' ? 'Sakit' : 'Izin' }})
+                                    </b>
                                     <br>
                                     <small class="text-muted">{{ Str::limit($d->keterangan, 18, '...') }}</small>
                                 </div>
@@ -49,7 +50,7 @@
                                         @endif
                                     </div>
                                     <div>
-                                        <a href="{{ url('/presensi/' . $d->id . '/edit') }}"
+                                        <a href="{{ url('/absensi/' . $d->id . '/edit') }}"
                                             class="edit btn btn-info btn-sm mr-2" id="{{ $d->id }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -63,7 +64,7 @@
                                             </svg>
                                         </a>
                                     </div>
-                                    <form action="/presensi/{{ $d->id }}/deleteizin" method="POST" id="frmIzin"
+                                    <form action="/absensi/{{ $d->id }}/deleteizin" method="POST" id="frmIzin"
                                         enctype="multipart/form-data">
                                         @csrf
                                         <button type="button" class="btn btn-danger btn-sm mr-1 delete-confirm">
@@ -88,7 +89,7 @@
     </div>
 
     <div class="fab-button bottom-right" style="margin-bottom: 70px">
-        <a href="/presensi/buatizin" class="fab">
+        <a href="/absensi/buatizin" class="fab">
             <ion-icon name="add-outline"></ion-icon>
         </a>
     </div>

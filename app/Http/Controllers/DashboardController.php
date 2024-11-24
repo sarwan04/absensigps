@@ -15,25 +15,25 @@ class DashboardController extends Controller
         $tahunini = date('Y');
         $nip = Auth::guard('karyawan')->user()->nip;
 
-        $presensihariini = DB::table('presensi')->where('nip', $nip)->where('tgl_presensi', $hariini)->first();
+        $absensihariini = DB::table('absensi')->where('nip', $nip)->where('tgl_absensi', $hariini)->first();
 
-        $historibulanini = DB::table('presensi')
+        $historibulanini = DB::table('absensi')
             ->where('nip', $nip)
-            ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
-            ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
-            ->orderBy('tgl_presensi')
+            ->whereRaw('MONTH(tgl_absensi)="' . $bulanini . '"')
+            ->whereRaw('YEAR(tgl_absensi)="' . $tahunini . '"')
+            ->orderBy('tgl_absensi')
             ->get();
 
-        $rekappresensi = DB::table('presensi')
+        $rekapabsensi = DB::table('absensi')
             ->selectRaw('COUNT(nip) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
             ->where('nip', $nip)
-            ->whereRaw('MONTH(tgl_presensi)="' . $bulanini . '"')
-            ->whereRaw('YEAR(tgl_presensi)="' . $tahunini . '"')
+            ->whereRaw('MONTH(tgl_absensi)="' . $bulanini . '"')
+            ->whereRaw('YEAR(tgl_absensi)="' . $tahunini . '"')
             ->first();
 
-        $leaderboard = DB::table('presensi')
-            ->join('karyawan', 'presensi.nip', '=', 'karyawan.nip')
-            ->where('tgl_presensi', $hariini)
+        $leaderboard = DB::table('absensi')
+            ->join('karyawan', 'absensi.nip', '=', 'karyawan.nip')
+            ->where('tgl_absensi', $hariini)
             ->orderBy('jam_in')
             ->get();
 
@@ -55,12 +55,12 @@ class DashboardController extends Controller
             ->get();
 
         return view('dashboard.dashboard', compact(
-            'presensihariini',
+            'absensihariini',
             'historibulanini',
             'namabulan',
             'bulanini',
             'tahunini',
-            'rekappresensi',
+            'rekapabsensi',
             'leaderboard',
             'rekapizin',
             'izinHariIni'
@@ -70,9 +70,9 @@ class DashboardController extends Controller
     public function dashboardadmin()
     {
         $hariini = date('Y-m-d');
-        $rekappresensi = DB::table('presensi')
+        $rekapabsensi = DB::table('absensi')
             ->selectRaw('COUNT(nip) as jmlhadir, SUM(IF(jam_in > "08:00", 1,0)) as jmlterlambat')
-            ->where('tgl_presensi', $hariini)
+            ->where('tgl_absensi', $hariini)
             ->first();
 
         $rekapizin = DB::table('pengajuan_izin')
@@ -81,6 +81,6 @@ class DashboardController extends Controller
             ->where('status_approved', 1)
             ->first();
 
-        return view('dashboard.dashboardadmin', compact('rekappresensi', 'rekapizin'));
+        return view('dashboard.dashboardadmin', compact('rekapabsensi', 'rekapizin'));
     }
 }

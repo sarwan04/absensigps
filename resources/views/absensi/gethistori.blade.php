@@ -13,7 +13,7 @@
                 <img src="{{ url($path) }}" alt="image" class="image">
                 <div class="in d-flex justify-content-between align-items-center">
                     <div>
-                        <b>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</b>
+                        <b>{{ date('d-m-Y', strtotime($d->tgl_absensi)) }}</b>
                     </div>
                     <div>
                         <span class="badge-custom {{ $d->jam_in < '08:00' ? 'bg-success' : 'bg-danger' }}">Hadir :

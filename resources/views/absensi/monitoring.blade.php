@@ -62,7 +62,7 @@
                                                 <th>Lokasi</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="loadpresensi">
+                                        <tbody id="loadabsensi">
 
                                         </tbody>
                                     </table>
@@ -101,28 +101,28 @@
                 format: 'yyyy-mm-dd'
             });
 
-            function loadpresensi() {
+            function loadabsensi() {
                 var tanggal = $("#tanggal").val();
                 $.ajax({
                     type: 'POST',
-                    url: '/getpresensi',
+                    url: '/getabsensi',
                     data: {
                         _token: "{{ csrf_token() }}",
                         tanggal: tanggal
                     },
                     cache: false,
                     success: function(respond) {
-                        $("#loadpresensi").html(respond);
+                        $("#loadabsensi").html(respond);
                     }
 
                 });
             }
 
             $("#tanggal").change(function(e) {
-                loadpresensi();
+                loadabsensi();
             });
 
-            loadpresensi();
+            loadabsensi();
         });
     </script>
 @endpush

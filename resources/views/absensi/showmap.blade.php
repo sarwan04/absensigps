@@ -7,7 +7,7 @@
 <div id="map"></div>
 
 <script>
-    var lokasi = "{{ $presensi->lokasi_in }}";
+    var lokasi = "{{ $absensi->lokasi_in }}";
     var lok = lokasi.split(",");
     var latitude = lok[0];
     var longitude = lok[1];
@@ -29,6 +29,6 @@
 
     var popup = L.popup()
         .setLatLng([latitude, longitude])
-        .setContent("{{ $presensi->nama_lengkap }}")
+        .setContent("{{ $absensi->nama_lengkap }}")
         .openOn(map);
 </script>

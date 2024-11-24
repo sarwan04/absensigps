@@ -6,7 +6,7 @@
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">
-                        Rekap Absensi
+                        Laporan Absensi
                     </h2>
                 </div>
 
@@ -20,7 +20,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="/presensi/cetakrekap" target="_blank" method="POST">
+                            <form action="/absensi/cetaklaporan" id="frmLaporan" target="_blank" method="POST">
                                 @csrf
                                 <div class="row mt-2">
                                     <div class="col-12">
@@ -61,6 +61,19 @@
                                 <div class="row mt-2">
                                     <div class="col-12">
                                         <div class="form-group">
+                                            <select name="nip" id="nip" class="form-select">
+                                                <option value="">Pegawai</option>
+                                                @foreach ($karyawan as $d)
+                                                    <option value="{{ $d->nip }}">{{ $d->nama_lengkap }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                    <div class="col-12">
+                                        <div class="form-group">
                                             <button type="submit" name="cetak" class="btn btn-primary w-100">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -78,6 +91,14 @@
                                         </div>
                                     </div>
 
+                                    {{-- <div class="col-6">
+                                    <div class="form-group">
+                                       <button type="submit" name="exportexcel" class="btn btn-success w-100">
+                                        <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+                                        Export to Excel
+                                       </button>
+                                    </div>
+                                </div> --}}
                                 </div>
 
                             </form>
@@ -88,3 +109,50 @@
         </div>
     </div>
 @endsection
+
+@push('myscript')
+    <script>
+        $(function() {
+            $("#frmLaporan").submit(function(e) {
+
+                var bulan = $("#bulan").val();
+                var tahun = $("#tahun").val();
+                var nip = $("#nip").val();
+
+                if (bulan == "") {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Bulan Harus Di Pilih',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        $("#bulan").focus();
+                    })
+                    return false;
+                } else if (tahun == "") {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Tahun Harus Di Pilih',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        $("#tahun").focus();
+                    })
+                    return false;
+
+                } else if (nip == "") {
+                    Swal.fire({
+                        title: 'Warning!',
+                        text: 'Nama Harus di Isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        $("#nip").focus();
+                    })
+                    return false;
+                }
+            });
+
+        });
+    </script>
+@endpush

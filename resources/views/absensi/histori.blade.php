@@ -1,4 +1,4 @@
-@extends('layouts.presensi')
+@extends('layouts.absensi')
 
 @section('header')
     {{--  App Header --}}

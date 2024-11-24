@@ -74,8 +74,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('presensi/monitoring') ? 'active' : '' }}"
-                        href="/presensi/monitoring">
+                    <a class="nav-link {{ request()->is('absensi/monitoring') ? 'active' : '' }}"
+                        href="/absensi/monitoring">
                         <span
                             class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -98,8 +98,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('presensi/izinsakit') ? 'active' : '' }}"
-                        href="/presensi/izinsakit">
+                    <a class="nav-link {{ request()->is('absensi/izinsakit') ? 'active' : '' }}"
+                        href="/absensi/izinsakit">
                         <span
                             class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -117,9 +117,9 @@
                 </li>
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {{ request()->is(['presensi/laporan', 'presensi/rekap']) ? 'show' : '' }}"
+                    <a class="nav-link dropdown-toggle {{ request()->is(['absensi/laporan', 'absensi/rekap']) ? 'show' : '' }}"
                         href="#navbar-base" data-bs-toggle="dropdown" data-bs-auto-close="false" role="button"
-                        aria-expanded="{{ request()->is(['presensi/laporan', 'presensi/rekap']) ? 'true' : '' }}">
+                        aria-expanded="{{ request()->is(['absensi/laporan', 'absensi/rekap']) ? 'true' : '' }}">
                         <span
                             class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
@@ -139,16 +139,16 @@
                     </a>
 
                     <div
-                        class="dropdown-menu {{ request()->is(['presensi/laporan', 'presensi/rekap']) ? 'show' : '' }}">
+                        class="dropdown-menu {{ request()->is(['absensi/laporan', 'absensi/rekap']) ? 'show' : '' }}">
                         <div class="dropdown-menu-columns">
                             <div class="dropdown-menu-column">
-                                <a class="dropdown-item {{ request()->is(['presensi/laporan']) ? 'active' : '' }}"
-                                    href="/presensi/laporan">
+                                <a class="dropdown-item {{ request()->is(['absensi/laporan']) ? 'active' : '' }}"
+                                    href="/absensi/laporan">
                                     Absensi
                                 </a>
 
-                                <a class="dropdown-item {{ request()->is(['presensi/rekap']) ? 'active' : '' }}"
-                                    href="/presensi/rekap">
+                                <a class="dropdown-item {{ request()->is(['absensi/rekap']) ? 'active' : '' }}"
+                                    href="/absensi/rekap">
                                     Rekap Absensi
                                 </a>
                             </div>

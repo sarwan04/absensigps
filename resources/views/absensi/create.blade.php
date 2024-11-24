@@ -1,4 +1,4 @@
-@extends('layouts.presensi')
+@extends('layouts.absensi')
 
 @section('header')
     <!-- App Header -->
@@ -229,7 +229,7 @@
             var lokasi = $('#lokasi').val();
             $.ajax({
                 type: 'POST',
-                url: '/presensi/store',
+                url: '/absensi/store',
                 data: {
                     _token: "{{ csrf_token() }}",
                     image: image,

@@ -1,4 +1,4 @@
-@extends('layouts.presensi')
+@extends('layouts.absensi')
 @section('content')
     <style>
         .logout {
@@ -56,7 +56,7 @@
 
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="/presensi/izin" class="danger" style="font-size: 40px;">
+                            <a href="/absensi/izin" class="danger" style="font-size: 40px;">
                                 <ion-icon name="calendar-number"></ion-icon>
                             </a>
                         </div>
@@ -67,7 +67,7 @@
 
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="/presensi/histori" class="warning" style="font-size: 40px;">
+                            <a href="/absensi/histori" class="warning" style="font-size: 40px;">
                                 <ion-icon name="document-text"></ion-icon>
                             </a>
                         </div>
@@ -78,7 +78,7 @@
 
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="/presensi/lokasi" class="orange" style="font-size: 40px;">
+                            <a href="/absensi/lokasi" class="orange" style="font-size: 40px;">
                                 <ion-icon name="location"></ion-icon>
                             </a>
                         </div>
@@ -99,9 +99,9 @@
                         <div class="card-body">
                             <div class="presencecontent">
                                 <div class="iconpresence">
-                                    @if ($presensihariini != null)
+                                    @if ($absensihariini != null)
                                         @php
-                                            $path = Storage::url('uploads/absensi/' . $presensihariini->foto_in);
+                                            $path = Storage::url('uploads/absensi/' . $absensihariini->foto_in);
                                         @endphp
                                         <img src="{{ url($path) }}" alt="" class="imaged w48 mr-1 ">
                                     @else
@@ -111,7 +111,7 @@
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Masuk</h4>
                                     <span>
-                                        {{ $presensihariini && $presensihariini->jam_in ? date('H:i', strtotime($presensihariini->jam_in)) : 'Belum Absen' }}
+                                        {{ $absensihariini && $absensihariini->jam_in ? date('H:i', strtotime($absensihariini->jam_in)) : 'Belum Absen' }}
                                     </span>
                                 </div>
                             </div>
@@ -123,9 +123,9 @@
                         <div class="card-body">
                             <div class="presencecontent">
                                 <div class="iconpresence">
-                                    @if ($presensihariini != null && $presensihariini->jam_out != null)
+                                    @if ($absensihariini != null && $absensihariini->jam_out != null)
                                         @php
-                                            $path = Storage::url('uploads/absensi/' . $presensihariini->foto_out);
+                                            $path = Storage::url('uploads/absensi/' . $absensihariini->foto_out);
                                         @endphp
                                         <img src="{{ url($path) }}" alt="" class="imaged w48 mr-1 ">
                                     @else
@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="presencedetail">
                                     <h4 class="presencetitle">Pulang</h4>
-                                    {{ $presensihariini && $presensihariini->jam_out ? date('H:i', strtotime($presensihariini->jam_out)) : 'Belum Absen' }}
+                                    {{ $absensihariini && $absensihariini->jam_out ? date('H:i', strtotime($absensihariini->jam_out)) : 'Belum Absen' }}
                                 </div>
                             </div>
                         </div>
@@ -143,14 +143,14 @@
             </div>
         </div>
 
-        <div id="rekappresensi">
+        <div id="rekapabsensi">
             <h3>Rekap Absen Bulan {{ $namabulan[$bulanini] }} Tahun {{ $tahunini }}</h3>
             <div class="row">
                 <div class="col-3">
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:10px; font-size: 0.6rem; z-index: 999;">{{ $rekappresensi->jmlhadir }}</span>
+                                style="position: absolute; top:3px; right:10px; font-size: 0.6rem; z-index: 999;">{{ $rekapabsensi->jmlhadir }}</span>
                             <ion-icon name="accessibility-outline" style="font-size: 1.6rem"
                                 class="text-primary mb-1"></ion-icon>
                             <br>
@@ -189,7 +189,7 @@
                     <div class="card">
                         <div class="card-body text-center" style="padding: 12px 12px !important; line-height: 0.8rem">
                             <span class="badge bg-danger"
-                                style="position: absolute; top:3px; right:10px; font-size: 0.6rem; z-index: 999;">{{ $rekappresensi->jmlterlambat }}</span>
+                                style="position: absolute; top:3px; right:10px; font-size: 0.6rem; z-index: 999;">{{ $rekapabsensi->jmlterlambat }}</span>
                             <ion-icon name="alarm-outline" style="font-size: 1.6rem" class="text-danger mb-1"></ion-icon>
                             <br>
                             <span style="font-size: 0.8rem; font-weight: 500;">Telat</span>
@@ -228,7 +228,7 @@
                                         <ion-icon name="finger-print-outline"></ion-icon>
                                     </div>
                                     <div class="in d-flex justify-content-between align-items-center">
-                                        <div>{{ date('d-m-Y', strtotime($d->tgl_presensi)) }}</div>
+                                        <div>{{ date('d-m-Y', strtotime($d->tgl_absensi)) }}</div>
                                         <div><span class="badge-custom badge-success">Hadir :
                                                 {{ date('H:i', strtotime($d->jam_in)) }}</span></div>
                                         <div>

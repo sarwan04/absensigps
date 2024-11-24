@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartemenController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\KonfigurasiController;
-use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\AsbensiController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -44,29 +45,29 @@ Route::middleware(['auth:karyawan'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::get('/proseslogout', [AuthController::class, 'proseslogout']);
 
-    // Presensi
-    Route::get('/presensi/create', [PresensiController::class, 'create']);
-    Route::post('presensi/store', [PresensiController::class, 'store']);
+    // absensi
+    Route::get('/absensi/create', [AbsensiController::class, 'create']);
+    Route::post('absensi/store', [AbsensiController::class, 'store']);
 
     // Edit profile
-    Route::get('/editprofile', [PresensiController::class, 'editprofile']);
-    Route::post('/presensi/{nik}/updateprofile', [PresensiController::class, 'updateprofile']);
+    Route::get('/editprofile', [AbsensiController::class, 'editprofile']);
+    Route::post('/absensi/{nik}/updateprofile', [AbsensiController::class, 'updateprofile']);
 
     // Histori 
-    Route::get('/presensi/histori', [PresensiController::class, 'histori']);
-    Route::post('/gethistori', [PresensiController::class, 'gethistori']);
+    Route::get('/absensi/histori', [AbsensiController::class, 'histori']);
+    Route::post('/gethistori', [AbsensiController::class, 'gethistori']);
 
     // Lokasi 
-    Route::get('/presensi/lokasi', [PresensiController::class, 'lokasi']);
+    Route::get('/absensi/lokasi', [AbsensiController::class, 'lokasi']);
 
     // Izin 
-    Route::get('/presensi/izin', [PresensiController::class, 'izin']);
-    Route::get('/presensi/buatizin', [PresensiController::class, 'buatizin']);
-    Route::post('/presensi/storeizin', [PresensiController::class, 'storeizin']);
-    Route::post('/presensi/cekpengajuanizin', [PresensiController::class, 'cekpengajuanizin']);
-    Route::get('/presensi/{id}/edit', [PresensiController::class, 'editizin']);
-    Route::post('/presensi/{id}/update', [PresensiController::class, 'updateizin']);
-    Route::post('/presensi/{id}/deleteizin', [PresensiController::class, 'deleteizin']);
+    Route::get('/absensi/izin', [AbsensiController::class, 'izin']);
+    Route::get('/absensi/buatizin', [AbsensiController::class, 'buatizin']);
+    Route::post('/absensi/storeizin', [AbsensiController::class, 'storeizin']);
+    Route::post('/absensi/cekpengajuanizin', [AbsensiController::class, 'cekpengajuanizin']);
+    Route::get('/absensi/{id}/edit', [AbsensiController::class, 'editizin']);
+    Route::post('/absensi/{id}/update', [AbsensiController::class, 'updateizin']);
+    Route::post('/absensi/{id}/deleteizin', [AbsensiController::class, 'deleteizin']);
 
     // END USER
 });
@@ -90,17 +91,17 @@ Route::middleware(['auth:user'])->group(function () {
     Route::post('/departemen/{kode_dept}/update', [DepartemenController::class, 'update']);
     Route::post('/departemen/{kode_dept}/delete', [DepartemenController::class, 'delete']);
 
-    // Presensi
-    Route::get('/presensi/monitoring', [PresensiController::class, 'monitoring']);
-    Route::post('/getpresensi', [PresensiController::class, 'getpresensi']);
-    Route::post('/tampilkanpeta', [PresensiController::class, 'tampilkanpeta']);
-    Route::get('/presensi/laporan', [PresensiController::class, 'laporan']);
-    Route::post('/presensi/cetaklaporan', [PresensiController::class, 'cetaklaporan']);
-    Route::get('/presensi/rekap', [PresensiController::class, 'rekap']);
-    Route::post('/presensi/cetakrekap', [PresensiController::class, 'cetakrekap']);
-    Route::get('/presensi/izinsakit', [PresensiController::class, 'izinsakit']);
-    Route::post('/presensi/approveizinsakit', [PresensiController::class, 'approveizinsakit']);
-    Route::get('/presensi/{id}/batalkanizinsakit', [PresensiController::class, 'batalkanizinsakit']);
+    // absensi
+    Route::get('/absensi/monitoring', [AbsensiController::class, 'monitoring']);
+    Route::post('/getabsensi', [AbsensiController::class, 'getabsensi']);
+    Route::post('/tampilkanpeta', [AbsensiController::class, 'tampilkanpeta']);
+    Route::get('/absensi/laporan', [AbsensiController::class, 'laporan']);
+    Route::post('/absensi/cetaklaporan', [AbsensiController::class, 'cetaklaporan']);
+    Route::get('/absensi/rekap', [AbsensiController::class, 'rekap']);
+    Route::post('/absensi/cetakrekap', [AbsensiController::class, 'cetakrekap']);
+    Route::get('/absensi/izinsakit', [AbsensiController::class, 'izinsakit']);
+    Route::post('/absensi/approveizinsakit', [AbsensiController::class, 'approveizinsakit']);
+    Route::get('/absensi/{id}/batalkanizinsakit', [AbsensiController::class, 'batalkanizinsakit']);
 
 
     // Konfigurasi lokasi kantor

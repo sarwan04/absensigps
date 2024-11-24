@@ -14,7 +14,7 @@
         return $jml_jam . ':' . round($sisamenit2);
     }
 @endphp
-@foreach ($presensi as $d)
+@foreach ($absensi as $d)
     @php
         $foto_in = Storage::url('uploads/absensi/' . $d->foto_in);
         $foto_out = Storage::url('uploads/absensi/' . $d->foto_out);

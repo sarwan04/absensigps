@@ -17,14 +17,14 @@
             font-weight: bold;
         }
 
-        .tabelpresensi {
+        .tabelabsensi {
             width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
         }
 
-        .tabelpresensi th,
-        .tabelpresensi td {
+        .tabelabsensi th,
+        .tabelabsensi td {
             border: 1px solid #131212;
             padding: 8px;
             font-size: 12px;
@@ -90,7 +90,7 @@
         }
 
         @media print {
-            .tabelpresensi .libur {
+            .tabelabsensi .libur {
                 background: red !important;
             }
 
@@ -156,7 +156,7 @@
                 </tr>
             </table>
 
-            <table class="tabelpresensi">
+            <table class="tabelabsensi">
                 <tr>
                     <th rowspan="2">NIP</th>
                     <th rowspan="2">Nama Pegawai</th>

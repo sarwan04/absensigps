@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        {{ $rekappresensi->jmlhadir }}
+                                        {{ $rekapabsensi->jmlhadir }}
                                     </div>
                                     <div class="text-secondary">
                                         Karyawan Hadir
@@ -142,7 +142,7 @@
                                 </div>
                                 <div class="col">
                                     <div class="font-weight-medium">
-                                        {{ $rekappresensi->jmlterlambat }}
+                                        {{ $rekapabsensi->jmlterlambat }}
                                     </div>
                                     <div class="text-secondary">
                                         Karyawan Terlambat
