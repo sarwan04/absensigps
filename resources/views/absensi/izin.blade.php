@@ -49,6 +49,24 @@
                                             <span class="badge bg-danger">Di Tolak</span>
                                         @endif
                                     </div>
+
+                                    <div class="btn-group">
+                                        <div class="mr-2">
+                                            <td>
+                                                @if ($d->bukti_izin)
+                                                    <a href="javascript:void(0)" data-bs-toggle="modal"
+                                                        data-bs-target="#previewModal"
+                                                        onclick="showImageModal('{{ asset('storage/' . $d->bukti_izin) }}')">Lihat
+                                                        Bukti</a>
+                                                @else
+                                                    Tidak Ada Bukti
+                                                @endif
+                                            </td>
+                                        </div>
+                                    </div>
+
+
+
                                     <div>
                                         <a href="{{ url('/absensi/' . $d->id . '/edit') }}"
                                             class="edit btn btn-info btn-sm mr-2" id="{{ $d->id }}">
@@ -87,6 +105,32 @@
             @endforeach
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" style="display: none;">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">Bukti Izin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        style="border: none; outline: none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-x"
+                            style="border: none; outline: none;">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M18 6l-12 12" />
+                            <path d="M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="Bukti Izin" style="max-width: 100%; max-height: 400px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="fab-button bottom-right" style="margin-bottom: 70px">
         <a href="/absensi/buatizin" class="fab">
@@ -140,5 +184,10 @@
                 });
             @endif
         });
+
+        function showImageModal(imageUrl) {
+            // Ganti src gambar di modal dengan URL yang dikirim
+            document.getElementById('modalImage').src = imageUrl;
+        }
     </script>
 @endpush

@@ -159,6 +159,7 @@
                                 <th>Jabatan</th>
                                 <th>Status</th>
                                 <th>Keterangan</th>
+                                <th>Bukti Izin</th>
                                 <th>Status Approve</th>
                                 <th>Aksi</th>
                             </tr>
@@ -172,6 +173,19 @@
                                     <td> {{ $d->jabatan }}</td>
                                     <td> {{ $d->status == 'i' ? 'Izin' : 'Sakit' }}</td>
                                     <td> {{ $d->keterangan }}</td>
+
+                                    <td class="text-center">
+                                        @if ($d->bukti_izin)
+                                            <img src="{{ asset('storage/' . $d->bukti_izin) }}" alt="Bukti Izin"
+                                                style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; cursor: pointer;"
+                                                data-bs-toggle="modal" data-bs-target="#previewModal"
+                                                onclick="showImageModal('{{ asset('storage/' . $d->bukti_izin) }}')">
+                                        @else
+                                            Tidak Ada Bukti
+                                        @endif
+                                    </td>
+
+
                                     <td class="text-center">
                                         @if ($d->status_approved == 1)
                                             <span class="badge bg-success">Di Setujui</span>
@@ -268,6 +282,21 @@
             </div>
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="previewModalLabel">Bukti Izin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="modalImage" src="" alt="Bukti Izin" style="max-width: 100%; max-height: 400px;">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('myscript')
@@ -286,5 +315,9 @@
                 format: 'yyyy-mm-dd'
             });
         });
+
+        function showImageModal(imageUrl) {
+            document.getElementById('modalImage').src = imageUrl;
+        }
     </script>
 @endpush

@@ -33,7 +33,7 @@
 @section('content')
     <div class="row" style="margin-top: 70px">
         <div class="col">
-            <form method="POST" action="/absensi/storeizin" id="formizin">
+            <form method="POST" action="/absensi/storeizin" id="formizin" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="tgl_izin" name="tgl_izin" class="form-control datepicker"
@@ -45,7 +45,14 @@
                         <option value="">Izin / Sakit</option>
                         <option value="i">Izin</option>
                         <option value="s">Sakit</option>
+                        <option value="s">Lainnya</option>
                     </select>
+                </div>
+
+                <div class="mb-2">
+                    <label for="bukti_izin" class="form-label" style="font-size: 14px;">Unggah Bukti Izin</label>
+                    <input class="form-control" type="file" id="bukti_izin" name="bukti_izin"
+                        accept=".jpg,.jpeg,.png,.pdf">
                 </div>
 
                 <div class="form-group">

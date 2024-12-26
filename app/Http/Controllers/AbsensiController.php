@@ -245,6 +245,12 @@ class AbsensiController extends Controller
             'keterangan' => $keterangan
         ];
 
+        if ($request->hasFile('bukti_izin')) {
+            // Simpan file ke dalam folder public/storage/buktiizin
+            $filePath = $request->file('bukti_izin')->store('buktiizin', 'public');
+            $data['bukti_izin'] = $filePath;
+        }
+
         $simpan = DB::table('pengajuan_izin')->insert($data);
 
         if ($simpan) {
@@ -256,24 +262,41 @@ class AbsensiController extends Controller
 
     public function updateizin(Request $request, $id)
     {
-        $tgl_izin = $request->tgl_izin;
-        $status = $request->status;
-        $keterangan = $request->keterangan;
 
         $data = [
-            'tgl_izin' => $tgl_izin,
-            'status' => $status,
-            'keterangan' => $keterangan
+            'tgl_izin' => $request->tgl_izin,
+            'status' => $request->status,
+            'keterangan' => $request->keterangan,
         ];
 
+        // Jika ada file baru diunggah
+        if ($request->hasFile('edit_bukti_izin')) {
+            $file = $request->file('edit_bukti_izin');
+            $filePath = $file->store('buktiizin', 'public');
+
+            // Hapus file lama jika ada
+            $izin = DB::table('pengajuan_izin')->where('id', $id)->first();
+            if ($izin && $izin->bukti_izin) {
+                $oldFilePath = public_path('storage/' . $izin->bukti_izin);
+                if (file_exists($oldFilePath)) {
+                    unlink($oldFilePath);
+                }
+            }
+
+            $data['bukti_izin'] = $filePath;
+        }
+
+        // Update data
         $update = DB::table('pengajuan_izin')->where('id', $id)->update($data);
 
+        // Redirect dengan pesan sukses/gagal
         if ($update) {
             return redirect('/absensi/izin')->with(['success' => 'Data Berhasil di Update']);
         } else {
             return redirect('/absensi/izin')->with(['error' => 'Data Gagal di Update']);
         }
     }
+
 
     public function editizin($id)
     {
@@ -405,7 +428,7 @@ class AbsensiController extends Controller
     {
 
         $query = Pengajuanizin::query();
-        $query->select('id', 'tgl_izin', 'pengajuan_izin.nip', 'nama_lengkap', 'jabatan', 'status', 'status_approved', 'keterangan');
+        $query->select('id', 'tgl_izin', 'pengajuan_izin.nip', 'nama_lengkap', 'jabatan', 'status', 'status_approved', 'keterangan',  'pengajuan_izin.bukti_izin');
         $query->join('pegawai', 'pengajuan_izin.nip', '=', 'pegawai.nip');
         if (!empty($request->dari) && !empty($request->sampai)) {
             $query->whereBetween('tgl_izin', [$request->dari, $request->sampai]);

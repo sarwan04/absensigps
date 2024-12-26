@@ -33,7 +33,8 @@
 @section('content')
     <div class="row" style="margin-top: 70px">
         <div class="col">
-            <form action="{{ url('/absensi/' . $izin->id . '/update') }}" method="POST" id="formizin">
+            <form action="{{ url('/absensi/' . $izin->id . '/update') }}" method="POST" id="formizin"
+                enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <input type="text" id="tgl_izin" name="tgl_izin" class="form-control datepicker"
@@ -48,6 +49,12 @@
                     </select>
                 </div>
 
+                <div class="mb-2">
+                    <label for="edit_bukti_izin" class="form-label" style="font-size: 14px;">Edit Bukti Izin</label>
+                    <input class="form-control" type="file" id="edit_bukti_izin" name="edit_bukti_izin"
+                        accept=".jpg,.jpeg,.png,.pdf">
+                </div>
+
                 <div class="form-group">
                     <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" placeholder="Keterangan"
                         maxlength="255" oninput="updateCharCount()" required>{{ $izin->keterangan }}</textarea>
@@ -56,6 +63,18 @@
 
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary w-100">Update</button>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                 </div>
             </form>
         </div>
